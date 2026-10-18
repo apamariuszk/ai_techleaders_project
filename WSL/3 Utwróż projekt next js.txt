@@ -1,0 +1,9 @@
+3. Uruchom Next.js
+
+Przejdź do katalogu projektu:
+
+npx create-next-app@latest .
+
+Uruchom aplikacje:
+
+npm run dev

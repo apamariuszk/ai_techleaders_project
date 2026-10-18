@@ -1,0 +1,8 @@
+Stack technologiczny:
+
+TypeScript - jezyk programowania
+Next.js jako de facto standard dla Reacta: backend i frontend w jednym, dobra dokumentacja, dobrze ograny z agentami kodującymi.
+PostgreSQL - baza danych
+Awilix - kontener dependency injection IoC  do zarządzania zależnościami
+Tailwind do stylowania i shadcn/ui na panel admina – gotowe, skalowalne komponenty z obsługą trybu jasnego i ciemnego.
+MikroORM - biblioteka, która pozwala z poziomu TypeScriptu obsługiwać relacyjne bazy danych, ale też aplikować do nich migracje

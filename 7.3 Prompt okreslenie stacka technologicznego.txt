@@ -1,0 +1,5 @@
+Continue the monorepo migration according to the saved plan. Check the current code and completed phase markers, then implement the first incomplete phase.
+
+Make the code changes, run checks appropriate for this stage and fix errors. Update progress in the plan and state what remains to be done.
+
+If this is the final phase, verify the whole project: dependency installation, build, available tests and application startup. Only report the migration as complete after these checks pass; if something blocks verification, describe the specific obstacle.

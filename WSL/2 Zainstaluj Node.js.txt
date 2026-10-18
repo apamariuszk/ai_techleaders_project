@@ -1,0 +1,19 @@
+
+2. Zainstaluj Node.js bezpośrednio w WSL
+
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+	### Krok 2 — załaduj nvm:
+	source ~/.bashrc
+	### Krok 3 — zainstaluj Node.js LTS:
+
+	nvm install --lts
+
+	### Krok 4 — sprawdź instalację:
+	which node
+	which npm
+	which npx
+
+	### Prawidłowe ścieżki powinny wyglądać mniej więcej tak:
+	/root/.nvm/versions/node/vXX.XX.X/bin/node
+	/root/.nvm/versions/node/vXX.XX.X/bin/npm
+	/root/.nvm/versions/node/vXX.XX.X/bin/npx

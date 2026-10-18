@@ -1,0 +1,9 @@
+Please create the AGENTS.md, CLAUDE.md files for my project and the .ai folder with the following subfolders:
+
+- specs - where I'll put specifications for the SDD - let's keep the naming strategy of: `YYYY-MM-DD-slug.md` for the specs and let's have the `implemented`, `archive` subfolders too
+
+- runs - where the logs for the AI autonomous runs will land - every AI run will comply with the naming strategy of: `YYYY-MM-DD-slug.md`
+
+- lessons.md + lessons subfolder - the lessons learned file will be for LLM's to store the findings, lessons and improvements they find - on after fixing a bug, or to just keep something in the long term memory
+
+Make sure we have the AGENTS.md and CLAUDE.md files that will enforce using these metadata structures and document the structure in them.

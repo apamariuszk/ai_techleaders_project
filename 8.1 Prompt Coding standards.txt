@@ -1,0 +1,3 @@
+Research and create a specification for the best possible tech stack, engineering standards, 
+coding standards, and design patterns for implementing the project described in ... 
+<insert the name of the file containing the initial description of your project here>.

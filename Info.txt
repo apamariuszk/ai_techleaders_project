@@ -1,0 +1,10 @@
+
+agent skills:
+
+https://agentskills.io/home
+
+https://www.skills.sh/
+
+
+openmercato skills:
+https://github.com/open-mercato/skills

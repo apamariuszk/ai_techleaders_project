@@ -1,0 +1,5 @@
+Read Boris Cherny’s 10 tips for working with Claude Code:
+https://ykdojo.github.io/claude-code-tips/content/boris-claude-code-tips
+
+Choose the principles useful for our project and add them concisely to AGENTS.md. Include planning complex tasks, verifying changes and recording lessons after corrections. Adapt them to the existing instructions without duplicating content.
+Make sure CLAUDE.md imports @AGENTS.md. Edit the files and show which principles you added.

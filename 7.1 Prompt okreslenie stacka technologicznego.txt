@@ -1,0 +1,9 @@
+I'm building the app - the "DevMentor" is the name - on the most recent Next.js + TypeScript + React. As a database, I'll be using PostgreSQL with MikroORM as a TypeScript database framework, supporting migrations and connection pooling, etc.
+
+We'll be using Awilix as a Dependency Injection container, Tailwind as the CSS framework for the frontend pages and shadcn-ui for the backend pages.
+
+I'll be using the monorepo - the `packages` folder will contain the sub-packages, and the minimum structure I'd like to have is the: app package - which is the main application source code, core - for the reusable parts, db - for the data management helpers and libraries, ui - for the reusable ui components.
+
+Please also create the AGENTS.md file consisting of all these assumptions - so the coding agents will keep up to it;
+
+Please also update the README.md with the architecture notes as well

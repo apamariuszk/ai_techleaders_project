@@ -1,0 +1,7 @@
+Implement the project’s migration to a monorepo now, following the agreed stack and architecture in AGENTS.md and README.md.
+
+Read the existing specification and plan in .ai/specs. If there is no plan yet, write a short plan with phases and completion criteria. Then start implementing the first incomplete phase.
+
+Make actual code changes: move the application to packages/app, separate packages/core, packages/db and packages/ui according to their responsibilities, and configure the workspace, inter-package dependencies, imports and scripts. Preserve the application’s existing behavior.
+
+After this phase, run the appropriate checks available in the project, fix any detected errors and record progress in the plan. Summarize the changes, check results and next stage. Updating documentation alone does not complete the migration.

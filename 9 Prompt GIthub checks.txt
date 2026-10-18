@@ -1,0 +1,10 @@
+OK I need to create the GitHub CI setup for this repository; for every pull request I want to have:
+
+* build check (if the app builds successfully)
+* lint check (if it gets linted properly)
+* then I want to incorporate the unit tests framework for TypeScript
+* and also, I want to have the integration testing framework using the testcontainers PostgreSQL instance so the app can be ephemerally instantiated and tested using the agent-browser as a testing framework
+
+Make sure the AGENTS.md rules make it explicit so every new feature must be 100% covered with Unit tests
+
+After making this CI happen, please add the unit tests to cover 100% of existing code.

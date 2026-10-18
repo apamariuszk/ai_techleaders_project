@@ -1,0 +1,9 @@
+
+
+testcontainers dają efemeryczną bazę: kontener wstaje, testy się wykonują, po zamknięciu nie zostaje po nich ślad.
+
+
+testy weba:
+https://playwright.dev/
+
+https://github.com/vercel-labs/agent-browser
