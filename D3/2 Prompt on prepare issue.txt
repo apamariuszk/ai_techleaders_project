@@ -1,0 +1,55 @@
+/om-prepare-issue I need to create the DevMentor installer - a single script user can call
+with: npm run setup which is doing what readme says
+in README.md, section Getting started; also update README
+for this new option keeping the manual steps as an alternative. Make this installer
+idempotent so when the user runs it a second time, it should prevail, just skip the
+steps that have already been executed before.
+
+
+##########################
+
+
+W aktualnej wersji skilli samo /om-fix 11 może nie rozpocząć implementacji tak jak na filmie. 
+To etap wykonawczy, który wymaga wcześniejszej analizy z om-root-cause. 
+Jeśli widzisz komunikat om-fix needs the om-root-cause, brakuje wyniku tego kroku.
+
+Możesz też zobaczyć Next step: om-auto-write-spec 11. Jeśli zgłoszenie dotyczy nowej funkcjonalności, 
+potrzebna jest najpierw specyfikacja, a dopiero potem implementacja.
+
+Żeby przeprowadzić issue przez cały proces jednym wywołaniem, użyj:
+
+/om-auto-fix-issue 11
+Kopiuj
+Zastąp 11 numerem swojego issue. Ten skill dobiera ścieżkę dla błędu albo nowej funkcjonalności i uruchamia kolejne etapy. 
+Nie musisz ręcznie zaczynać każdego skilla. To od niego zacznij ćwiczenie z nagrania.
+
+
+
+
+Jeśli wybierasz ręczne uruchamianie etapów, najpierw przygotuj analizę przez om-root-cause, 
+potem przekaż jej wynik do om-fix. Samo om-fix kończy pracę na implementacji i testach.
+Osobny om-open-pr robi commit, push i otwiera PR. 
+
+############
+
+W przypadku błędu om-auto-fix-issue łączy te skille w następujący przepływ:
+
+wywołuje om-verify-in-repo – starając się sprawdzić, czy błąd faktycznie istnieje lub czy zadanie ma zastosowanie do obecnego stanu repozytorium;
+wywołuje om-root-cause – który stara się znaleźć faktyczną przyczynę błędu;
+wywołuje om-fix, który poprawia błąd i przechodzi wymagane checki;
+następnie wywołuje om-open-pr, który robi commit, push i otwiera PR;
+przekazuje PR do om-auto-review-pr, który przeprowadza review.
+
+############
+
+/om-code-review 6  (od PR)
+
+po review: ok, fix all
+
+
+Zwróć uwagę, że istnieje też skill o nazwie om-auto-review-pr, 
+który również wywołuje om-code-review, ale wyniki jego działania 
+dodatkowo publikuje jako komentarze do Pull Requesta – dzięki czemu zadanie może działać w pełni autonomicznie, 
+bez udziału człowieka, a wyniki trafią po prostu na GitHuba.
+
+

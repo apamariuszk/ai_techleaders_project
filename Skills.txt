@@ -1,0 +1,20 @@
+
+agent skills:
+
+https://agentskills.io/home
+
+https://agentskills.io/skill-creation/best-practices
+
+https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+
+
+https://www.skills.sh/
+
+
+
+openmercato skills:
+https://github.com/open-mercato/skills
+
+
+open-mercato:
+https://github.com/open-mercato/skills/blob/main/docs/skills/README.md

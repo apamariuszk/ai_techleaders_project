@@ -1,0 +1,24 @@
+
+
+
+npx skills add open-mercato/skills --skill '*'
+
+
+/om-setup-agent-pipeline
+
+
+GITLAB:
+
+ W pierwszej lekcji pokazuję Tobie, jak dać agentowi taki dostęp przez GitHub CLI. Jeśli korzystasz z GitLaba, wykonaj analogiczne kroki, 
+ korzystając z GitLab CLI. W przypadku Bitbucketa będzie trochę trudniej: możesz oprzeć integrację na jego API, a agent mógłby przygotować dla Ciebie polecenia CLI, 
+ które z niego korzystają. Przepraszam, ale nie byliśmy w stanie skupić się na wszystkim! :)
+
+Tak samo jest z Jirą czy Linearem. Jasne, że da się trzymać tam backlog, czyli listę zadań, ale nie opisywaliśmy tego w ramach kursu.
+
+W lekcji 3 zwróć uwagę na skilla om-setup-agent-pipeline, który pomaga agentom kodującym otrzymać dostęp do Twojego środowiska. 
+Nasze skille obsługują GitLaba, więc w tym kroku będziesz w stanie ustawić odpowiedni dostęp. Wcześniej zainstaluj GitLab CLI, czyli polecenie glab, 
+w Sandboxie lub na lokalnym komputerze, tam, gdzie będziesz przechodzić kurs.
+
+W lekcji 3 popracuj z agentem, żeby dodał brakujący tracker zadań i kodu lub dopasował istniejący do Twojego środowiska. 
+Jako punkt wyjścia wykorzystaj szablony trackerów dla GitHuba i GitLaba:
+https://github.com/open-mercato/skills/tree/main/skills/om-setup-agent-pipeline/references/trackers
