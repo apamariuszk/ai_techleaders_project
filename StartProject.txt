@@ -1,0 +1,20 @@
+
+
+# github:
+npm gh
+gh auth login
+
+
+
+
+# install skills:
+
+npx skills add open-mercato/skills --skill '*'
+
+
+npx skills update -p
+
+$om-setup-agent-pipeline
+
+
+$om-setup-discovery
