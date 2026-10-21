@@ -1,0 +1,47 @@
+
+tablice RACI:
+- jakie role
+- uczestnicy
+
+
+
+Proudct vision board:
+	podsumowanie wizji oraz okreslenie:
+	dotycza produktu
+		- dla kogo go robimy
+		- jakie potrzeby  ma zaspokoic
+		- co ma oferowac
+		- jaki jest cel biznesowy
+	odtyczy rynku - model biznesowy:
+		- z kim konkurujemy
+		- na kim zarabiamy
+		- jakie mamy koszta
+		- jak docieramy do użytkowników
+		
+		
+Value proposition canvas dla uzytkowników
+	
+	to dobry test dla funkcji - czy nie chcemy jej zrobic bo fajnie brzmi
+	po jednej stronie człowiek:
+		- co chce zrobic
+		- co go blokuje
+		- czego oczekuje
+		
+	po drugije stronie produkt:
+	- co chcemy mu dać
+	- ktory problem ma to rozwiązac
+	
+	
+Journey Map - sciezki dla uzytkownikow
+ - pozwala spojrzec na produkt oczami uzytkownika
+ 
+
+Narzedzie MoSCoW
+- konieczne
+- wazne
+- przydatne
+- takie ktorych nie robimy w pierwszej wersji
+
+
+Wywiady z ludzmi
+- rozmowy, luzne spostrzenia, pytania
