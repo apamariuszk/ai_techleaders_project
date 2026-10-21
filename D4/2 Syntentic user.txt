@@ -1,0 +1,2 @@
+
+/om-synthetic-users devmentor-synthetic-input/.ai/specs/product-brief.md --research devmentor-synthetic-input/.ai/specs/research --flow "Future state, booking and session (1.0), decided steps" --stance adversary --panel 2 --runs 1 --hold-out devmentor-synthetic-input/.ai/specs/research/holdout/2026-09-01-interview-backend-dev-fintech.md
