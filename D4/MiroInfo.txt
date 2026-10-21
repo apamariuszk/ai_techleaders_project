@@ -1,5 +1,12 @@
 
-tablice RACI:
+Benchmark
+- przegląd rozwiazan opini uzytkownikow co oferuja itp
+
+
+
+
+
+Tablice RACI:
 - jakie role
 - uczestnicy
 
@@ -45,3 +52,6 @@ Narzedzie MoSCoW
 
 Wywiady z ludzmi
 - rozmowy, luzne spostrzenia, pytania
+
+Decision records - rekord decyzji projektowych
+-co sutalon, wlasciciel decyzji i co mogloby zmienic decyzje
