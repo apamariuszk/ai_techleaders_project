@@ -21,4 +21,4 @@ $om-setup-discovery
 
 lekcja-04-wsad-discovery-devmentor.zip
 
-$on-discovery
+$om-discover DevMentor --mode own --research .ai/specs/research
