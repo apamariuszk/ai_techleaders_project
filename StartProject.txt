@@ -5,7 +5,7 @@ npm gh
 gh auth login
 
 
-
+ai-techleaders-project-after-lesson-03.zip
 
 # install skills:
 
@@ -18,3 +18,7 @@ $om-setup-agent-pipeline
 
 
 $om-setup-discovery
+
+lekcja-04-wsad-discovery-devmentor.zip
+
+$on-discovery
