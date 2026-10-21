@@ -1,0 +1,13 @@
+
+$om-setup-discovery
+
+lekcja-04-wsad-discovery-devmentor.zip
+
+$om-discover DevMentor --mode own --research .ai/specs/research
+
+Masz własny pomysł i zaczynasz brief	/om-discover DevMentor --mode own	Przeprowadzi rozmowę o pomyśle, założeniach i zakresie; po potwierdzeniu ustaleń zapisze brief
+Pracujesz nad pomysłem klienta	/om-discover DevMentor --mode client	Uwzględni materiały klienta, jego proces i ustalenia z osobami podejmującymi decyzje
+Rozwijasz istniejący produkt	/om-discover DevMentor --mode existing	Zacznie od obecnego działania produktu, dostępnych danych i konsekwencji proponowanej zmiany
+Masz nowe materiały lub decyzje do istniejącego briefu	/om-discover --refresh	Przygotuje aktualizację, zachowując identyfikatory i historię zmienionych decyzji; wskaż mu nowe materiały i przejrzyj propozycję
+Chcesz wskazać katalog materiałów	/om-discover DevMentor --research .ai/specs/research	Przeczyta materiały z podanego katalogu; w domyślnym układzie projektu korzysta właśnie z tej lokalizacji
+Potrzebujesz krótszej rozmowy na podstawie tego, co już masz	/om-discover DevMentor --mode own --quick	Ograniczy rozmowę do jednej rundy pytań i wykona przegląd w tym samym kontekście, bez osobnego agenta sceptyka; braki nadal pozostaną oznaczone

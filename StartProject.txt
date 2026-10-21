@@ -16,9 +16,3 @@ npx skills update -p
 
 $om-setup-agent-pipeline
 
-
-$om-setup-discovery
-
-lekcja-04-wsad-discovery-devmentor.zip
-
-$om-discover DevMentor --mode own --research .ai/specs/research
