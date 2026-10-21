@@ -43,7 +43,7 @@ Journey Map - sciezki dla uzytkownikow (Co dzieje się przed użyciem produktu, 
  - pozwala spojrzec na produkt oczami uzytkownika
  
 
-Narzedzie MoSCoW
+Narzedzie MoSCoW (Co musi znaleźć się w wybranym wydaniu)
 - konieczne
 - wazne
 - przydatne
