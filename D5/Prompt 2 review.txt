@@ -1,0 +1,3 @@
+.ai/specs/2026-10-22-platform-foundations.md .ai/specs/2026-10-22-mvp-backlog-dependencies.md .ai/specs/2026-10-22-accounts-and-roles.md
+Please review this spec to find inconsistent design or mutually exclusive designs.
+Check for anti-patterns and over complexity

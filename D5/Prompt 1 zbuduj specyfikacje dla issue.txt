@@ -1,0 +1,8 @@
+I would like to create a specification based on issue number #1 (E01 — Accounts and roles), but what will be important here is that, 
+during the specification process, we not only create a feature,
+
+but also create a framework underneath to have primitives that will work through the application growth.
+
+You need to extract from backlog what types of features will be provided in that application
+and try to design also backend and frontend 
+primitives to allow reusability and proper abstraction of services inside our app.
