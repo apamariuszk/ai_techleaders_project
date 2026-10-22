@@ -1,0 +1,21 @@
+# Wstępna koncepcja portalu mentoringowego
+
+Zaprojektuj wstępną koncepcję portalu mentoringowego inspirowanego sprawdzonymi funkcjami i przepływami Preply.com. Preply traktuj jako benchmark funkcjonalny i UX – nie kopiuj jego identyfikacji wizualnej, treści ani kodu.
+
+## Oczekiwane rezultaty
+
+Przygotuj:
+
+1. Listę użytkowników systemu i ich potrzeb.
+2. Najważniejsze use case'y oraz kompletne przepływy użytkownika.
+3. Mapę ekranów i nawigacji.
+4. Dla każdego ekranu:
+   - cel,
+   - dostępne funkcje,
+   - komponenty UI,
+   - stany loading, empty, error i success,
+   - walidacje,
+   - powiązane endpointy API.
+5. Klikalne mockupy w HTML/CSS/TypeScript, obejmujące wszystkie kluczowe ścieżki.
+
+Spakuj efekt działania do pliku ZIP, żebym mógł to sobie pobrać.
