@@ -1,0 +1,3 @@
+npx skills@latest add mattpocock/skills --skill grill-me
+
+$grill-me .ai/specs/2026-10-22-accounts-and-roles.md
