@@ -1,0 +1,3 @@
+Cały proces w jednej linijce:
+
+backlog → analiza codebase → pytania do użytkownika → draft specyfikacji → review innym modelem → grill me → poprawki → zatwierdzona specyfikacja → dalszy pipeline
