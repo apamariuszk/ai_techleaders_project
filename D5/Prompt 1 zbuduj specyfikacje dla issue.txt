@@ -1,3 +1,8 @@
+
+skill om-spec-writing
+
+niejawnie zapisany:
+
 I would like to create a specification based on issue number #1 (E01 — Accounts and roles), but what will be important here is that, 
 during the specification process, we not only create a feature,
 
