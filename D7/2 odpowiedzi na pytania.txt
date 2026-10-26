@@ -1,0 +1,29 @@
+L1. Po odmowie dostępu przekierowanie zostaje, tak jak w specyfikacji. Na stronie startowej, na którą trafia użytkownik, pokaż jeden baner AuthFeedback: stan forbidden po wejściu na ekran innej roli, stan operator-revoked po cofnięciu operatora. Treść forbidden: „You don't have access to that page, so we brought you to your home.” Treść operator-revoked weź z design systemu.
+
+L2. Logowanie na niepotwierdzone konto: ekran logowania pokazuje stan unverified-email. Akcja „Request a new link” prowadzi do rejestracji z wpisanym mailem. Ponowna rejestracja niepotwierdzonego maila wysyła nowy link (tabela registerWithPassword, wiersze 4–5). Limit: 3 na maila na godzinę.
+
+L3. Zalogowany użytkownik na /register: przekierowanie na stronę startową według ról, tak samo jak /sign-in w EC28. Zapisz to jako nowy przypadek brzegowy obok EC28.
+
+L4. Strony startowe ról w 1.0: powłoka, nawigacja i jeden EmptyState z jednym zdaniem o tym, co się tu pojawi w kolejnych epikach. Na /admin zamiast tego zdanie z linkiem do listy użytkowników.
+
+L5. Pusty stan listy użytkowników nie wystąpi, bo na liście jest zawsze co najmniej operator, który ją ogląda. Zostaw domyślny pusty stan DataTable, bez osobnej treści.
+
+L6. Nazewnictwo jest zamknięte decyzją w specyfikacji kont i ról: w interfejsie i w kodzie „mentee”. W mapie oznacz wpis w backlogu jako zamknięty. Backlogu teraz nie zmieniaj.
+
+L7. W Epiku 01 formularz logowania jest zawsze taki sam. Nagłówki zależne od przerwanej czynności dodają epiki, które tę czynność wprowadzają: zaproszenie w #15, a rezerwacja w epiku rezerwacji.
+
+L8. Nie przed prototypem. Persony przejdą prototyp w następnym kroku, bo dołączanie mentora zaczyna się od logowania. Kolejność GitHub i mail oraz treść banera z L1 zapisz jako hipotezy do sprawdzenia.
+
+Odpowiedzi na luki w design systemie, jako konwencja dla prototypu:
+
+DS-L1. AuthFeedback to komunikat obok formularza, kiedy użytkownik może poprawić sytuację na tym samym ekranie: złe hasło, niedostępny GitHub, wygasły link, limit żądań. AccessStatus to karta zamiast treści ekranu, kiedy zostaje jedna akcja: sprawdź skrzynkę, mail potwierdzony, sesja wygasła.
+
+DS-L2. Baner po odmowie to AuthFeedback na górze treści strony, wewnątrz AppShell, pod nawigacją.
+
+DS-L3. Role i status weryfikacji w tabeli operatora pokazuj neutralnym Badge, zgodnie z „Fact and technology chips” w Guidelines.mdx.
+
+DS-L4. Nie dotyczy, patrz L5.
+
+DS-L5. Pod przełącznikiem logowanie/rejestracja zwykły link tekstowy „Back to home” do publicznej strony głównej, oddzielony od przełącznika odstępem.
+
+Zatwierdzam mapę z tymi odpowiedziami. Wpisz decyzje przy każdej luce i zaktualizuj liczby. Nie zmieniaj specyfikacji, backlogu ani design systemu.
