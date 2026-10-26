@@ -1,0 +1,4 @@
+Wyjaśnij mi prostym językiem to pytanie z mapy ekranów i zaproponuj odpowiedź
+z krótkim uzasadnieniem. Nie zmieniaj jeszcze mapy.
+
+{{wklej pytanie}}
