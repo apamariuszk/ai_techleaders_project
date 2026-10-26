@@ -1,0 +1,6 @@
+## R01
+Źródło: {{link albo nazwa pliku ze zrzutem, np. lekcja-06/R01-tutor-landing.png}}
+Podoba mi się: {{co konkretnie, własnymi słowami}}
+Nie podoba mi się: {{co z tej samej referencji NIE bierzemy}}
+Dlaczego to pasuje do naszego produktu: {{opcjonalnie}}
+Jak bardzo: {{musi być / warto / tylko inspiracja}}

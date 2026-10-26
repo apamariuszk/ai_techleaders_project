@@ -1,0 +1,4 @@
+## A01
+Źródło: {{link, zrzut albo opis wyglądu}}
+Nie chcę tego, bo: {{własnymi słowami}}
+Po czym to poznać: {{opcjonalnie, np. "gradient, szklane karty, fioletowe tło"}}

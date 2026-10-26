@@ -1,0 +1,101 @@
+# Task
+
+Check the interface for a generic appearance and common UX problems.
+Do not change any files. Your output is a report.
+
+A generic appearance comes from choices nobody consciously made: library defaults,
+the most common patterns online, invented content and data. A single element need
+not be a mistake. The problem is having many such elements at once.
+
+# What you are checking (fill in)
+
+- Interface files or directories: {{paths}}
+- Running application URL, if any: {{e.g. http://localhost:3000
+  or “none”}}
+- Design system, if any: {{path to tokens and Storybook, or “none”}}
+- Product data and brand: {{e.g. brief, real numbers, customer list, brand
+  colors, or “none”}}
+
+# Step 1. Signs of a generic appearance
+
+For each sign, state: present / absent / cannot verify.
+Equivalent forms count too: the same effect in another form, e.g. another pair of
+buttons following the same pattern. If present, give the file and line or describe
+the element on the screen.
+
+Color:
+- indigo or purple as the action color without a brand justification
+- gradient text in a heading
+- a gradient background or button
+- a dark navy background with a glow
+
+Shape and depth:
+- large rounded corners and pills on most elements
+- cards with shadows as the only way to separate content
+- a card inside a card
+- translucent, blurred panels
+
+Layout:
+- a news or number pill above a heading
+- a highlighted word in a heading
+- a button pair like “Start for free” and “See demo”
+- a row of huge numbers
+- three identical cards with icons
+- cards floating above the first screen
+
+Decoration:
+- a logo as a colored square with a letter or icon
+- initial avatars on colored backgrounds
+- emoji instead of icons
+- sparkles as an AI symbol
+- icons on colored backgrounds beside headings
+
+Text and data:
+- promises that say nothing about the product
+- numbers, testimonials, ratings, customer and company names absent from product data
+  (if product data was not provided, at least check whether the page’s numbers
+  are consistent with one another)
+
+# Step 2. UX and accessibility problems
+
+Check at widths of 1440, 768 and 320 px if you have a browser.
+
+- text contrast below 4.5 : 1, large text and interface elements below 3 : 1.
+  Measure in the browser. For gradients and image backgrounds, measure the worst
+  point. If you have no browser, state what could not be measured.
+- clickable targets smaller than 24 × 24 px. State whether they meet the spacing
+  exception in WCAG 2.5.8.
+- form fields without visible labels (placeholder only)
+- color as the only way to communicate state
+- missing loading, empty and error states
+- invisible keyboard focus
+- text lines longer than 75 characters (specify the viewport width)
+- error messages that do not say what to do
+- content that disappears or is unreadable without JavaScript
+
+# Step 3. Count the variation in values
+
+Count unique values and report:
+- text colors visible on screen at 1440 px
+- font sizes visible on screen at 1440 px
+- border radii in code
+- spacing values (padding, margin, gap) in code and how many fall outside a 4 px grid
+- hardcoded colors (hex, rgb, hsl, oklch, Tailwind palette classes such as
+  bg-zinc-900 or text-white, arbitrary Tailwind values) outside the token file
+
+# Output
+
+1. A table of the main findings, at most 15 rows. Group similar findings in one row.
+   Columns: sign or problem | where | what is visible | why it is a problem
+   (generic appearance / UX / accessibility) | replacement | confidence
+   (verified / inferred).
+2. Remaining findings as a short list.
+3. Counts from step 3.
+4. Five decisions needed to stop this interface looking average. For each, state
+   whether it will be a token, component or principle. Describe them in the report;
+   do not change files.
+
+Rules:
+- Do not guess. If something cannot be verified, state that clearly.
+- Do not judge taste. Judge whether a choice is justified by the product.
+- Do not modify project files.
