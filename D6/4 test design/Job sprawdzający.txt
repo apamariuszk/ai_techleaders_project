@@ -1,0 +1,46 @@
+
+
+Żeby sprawdzenie zatrzymywało PR, dopisz w swoim workflow CI pod jobs: osobny job, obok istniejących (w DevMentorze .github/workflows/ci.yml z jobami build, lint, unit i integration):
+
+
+
+
+  tokens:
+    name: Wartości spoza tokenów
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Szukaj wartości spoza tokenów
+        run: |
+          status=0
+          grep -rnE '#[0-9a-fA-F]{3,8}\b|(rgba?|hsla?|oklch)\(|-\[[0-9.]+(px|rem)\]|(^|[^-[:alnum:]_])(bg|text|border|ring|fill|stroke|from|via|to)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-[0-9]{2,3}\b|(^|[^-[:alnum:]_])(bg|text|border)-(white|black)\b' packages/app/src packages/ui/src/components --include='*.tsx' --include='*.css' || status=$?
+          if [ "$status" -eq 0 ]; then echo "Znaleziono wartości spoza tokenów"; exit 1; fi
+          if [ "$status" -ne 1 ]; then echo "grep nie zadziałał, sprawdź ścieżki"; exit 1; fi
+		  
+		  
+##############################
+  
+PROMPT:
+
+
+Dodaj do workflow CI w .github/workflows/ (w DevMentorze ci.yml) osobny job,
+który uruchamia testy Storybooka skryptem z etapu 1 (nazwę sprawdź w package.json
+i POSTEP.md), w obu motywach, jeśli produkt ma ciemny motyw. Te testy uruchamiają
+stories w przeglądarce, więc zainstaluj w jobie przeglądarkę Playwrighta. Kroki
+checkout, setup-node i npm ci weź z istniejących jobów. Nie zmieniaj pozostałych jobów.
+Zanim zapiszesz plik, pokaż mi YAML nowego joba i poczekaj na moją zgodę.
+
+
+####################
+
+
+Co robisz w zadaniu domowym, po etapie 5:
+
+Zacznij nową rozmowę (w Claude Code /clear).
+Wklej prompt „Test design systemu agentem” i uzupełnij blok „Kontekst”: ekran, który agent zapisał w POSTEP.md na etapie 5, 
+i ścieżki do design systemu, Storybooka i AGENTS.md. 
+Na DevMentorze możesz zamiast tego wkleić prompt „Test agentem na DevMentorze” 
+z lekcja-06/test-agentem-devmentor.txt, który buduje przykładowy ekran „Ulubieni mentorzy”.
+Przeczytaj listę decyzji. Każda ma etykietę REGUŁA, PRZYKŁAD albo ZGADUJĘ.
+Każdą lukę zamień w zadanie: dopisz zasadę, dodaj stan lub komponent albo wpisz lukę na stronę „What is missing”. Potem puść test jeszcze raz.

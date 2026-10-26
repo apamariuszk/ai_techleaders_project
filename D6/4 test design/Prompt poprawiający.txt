@@ -1,0 +1,14 @@
+Zamień w kodzie aplikacji (w DevMentorze packages/app/src) wartości wpisane
+na sztywno na tokeny z pliku tokenów (w DevMentorze z paczki
+packages/ui/src/tokens.css; jeśli go nie ma, znajdź go w repozytorium
+i napisz, który plik wybrałeś).
+
+1. Znajdź kolory w hex, rgb, hsl i oklch, klasy palety Tailwinda
+   (np. text-zinc-500, bg-zinc-900, text-white) i arbitralne wartości
+   Tailwinda. Pokaż mi listę z plikiem i linią.
+2. Dla każdej wartości zaproponuj istniejący token znaczeniowy,
+   np. text-zinc-500 na text-muted-foreground.
+3. Jeśli żaden token nie pasuje (np. text-emerald-600 przy statusie
+   „Connected”), zaproponuj nowy token znaczeniowy z wartością dla jasnego
+   i ciemnego motywu i policz kontrast. Poczekaj na moją decyzję.
+4. Po zatwierdzeniu zmień tylko te pliki i plik tokenów.
