@@ -1,0 +1,2 @@
+Przeczytaj prototypes/konta-i-role/POSTEP.md i prompt z pliku
+lekcja-07/klikalny-prototyp-devmentor.txt. Kontynuuj od następnego etapu.
