@@ -1,0 +1,10 @@
+/om-mockup-prototype .ai/specs/product-brief.md --flow "mentor onboarding" --slug mentor-onboarding
+
+
+Jeśli chcesz zrobić nową wersję szarego prototypu, użyj opcji --refresh:
+
+
+/om-mockup-prototype --refresh .ai/prototypes/discovery/mentor-onboarding/revision-001
+
+
+

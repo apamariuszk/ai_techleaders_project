@@ -1,0 +1,1 @@
+grep -A1 '"browser"' .ai/agentic.config.json; ls .ai/browsers/
