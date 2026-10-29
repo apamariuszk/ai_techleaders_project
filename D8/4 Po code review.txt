@@ -1,0 +1,1 @@
+TODO (moje): Zrobiłem code review innym agentem. Zastosuj sie do uwag i popraw błędy zgłoszone w ramach code review.
