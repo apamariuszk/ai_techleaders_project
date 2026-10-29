@@ -1,0 +1,1 @@
+Zrób code review obecnej implementacji na tej gałęzi, od jej utworzenia do teraz. Użyj skilla do code review.

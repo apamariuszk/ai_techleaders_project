@@ -1,0 +1,21 @@
+cp .env.example .env
+
+# wygeneruj secret
+openssl rand -base64 32
+
+
+SESSION_SECRET=tu-wklej-wygenerowany-klucz
+
+
+OPERATOR_EMAILS=mock-operator@devmentor.test
+AUTH_IDENTITY_ADAPTER=mock
+INTEGRATION_TEST_RUN=1
+
+# Przygotuj bazę
+npm run db:up
+npm run db:migrate
+npm run db:seed
+
+# Uruchom i zaloguj się na każdą rolę
+
+npm run dev
