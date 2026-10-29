@@ -1,0 +1,5 @@
+
+grep -RInE '!`|curl |wget |base64 |~/\.ssh|~/\.aws|\.env' \
+  ~/.claude/skills/ .claude/skills/ ~/.agents/skills/ .agents/skills/ 2>/dev/null
+  
+  

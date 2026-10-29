@@ -1,0 +1,9 @@
+mkdir -p ~/lab-lekcja-09 && cd ~/lab-lekcja-09
+unzip ~/Downloads/lekcja-09-laboratorium-bezpieczenstwa.zip
+cd lekcja-09-laboratorium
+chmod +x 07-hook/.claude/hooks/pre-tool-use.sh narzedzia/*.sh
+
+
+
+blog 
+https://simonwillison.net/

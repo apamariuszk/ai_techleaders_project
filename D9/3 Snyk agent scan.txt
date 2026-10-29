@@ -1,0 +1,9 @@
+
+Skille możesz też przeskanować tym samym mechanizmem, 
+którym Snyk skanuje skills.sh. Narzędzie to Snyk Agent Scan. 
+Potrzebujesz konta na app.snyk.io i tokenu API z ustawień konta oraz zainstalowanego uv:
+
+
+export SNYK_TOKEN=twoj-token-z-app.snyk.io      # nie wpisuj tokenu do plików w repozytorium
+uvx snyk-agent-scan@latest --skills              # cała maszyna: Claude Code, Cursor, Gemini CLI i inne
+uvx snyk-agent-scan@latest ~/.claude/skills      # tylko wskazany katalog albo plik SKILL.md
