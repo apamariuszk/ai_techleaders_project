@@ -1,0 +1,28 @@
+sekrety z menedżera zamiast .env
+
+
+
+narzedzie 1Password  (są tez inne). W repozytorium zamiast .env leży .env.template, który można commitować, bo nie ma w nim wartości, tylko odnośniki do miejsca w sejfie:
+Ten sam wzorzec dają Doppler (doppler run -- npm run dev), Infisical (open source, do self-hostingu, infisical run -- npm run dev), HashiCorp Vault i AWS Secrets Manager. 
+Porozmawiajcie w zespole, co będzie dla Was najlepsze.
+
+
+# plik .env.template – bez sekretów, same odnośniki op://Sejf/Pozycja/pole
+DB_HOST=127.0.0.1
+DB_USER=devmentor
+DB_PASSWORD=op://DevMentor-Dev/Postgres/password
+SESSION_SECRET=op://DevMentor-Dev/Session/secret
+GITHUB_CLIENT_ID=op://DevMentor-Dev/GitHub-OAuth/client-id
+GITHUB_CLIENT_SECRET=op://DevMentor-Dev/GitHub-OAuth/client-secret
+
+
+uruchomienie aplikacji:
+
+op run --env-file=.env.template -- npm run dev
+
+########### INSTRUKCJA:
+
+1 Zainstaluj CLI (brew install 1password-cli) i w aplikacji 1Password włącz Settings → Developer → Integrate with 1Password CLI.
+2 Utwórz sejf DevMentor-Dev z pozycjami Postgres (pole password), Session (pole secret) i GitHub-OAuth (pola client-id, client-secret). 
+  Nazwy muszą zgadzać się z odnośnikami. Pełny wzór dla DevMentora jest w laboratorium (05-sekrety/.env.template).
+3 Usuń .env z katalogu projektu i uruchom aplikację przez op run.
