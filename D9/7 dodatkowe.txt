@@ -1,0 +1,18 @@
+
+
+.claude/hooks/pre-tool-use.sh
+
+z konfiguracją w hooks w .claude/settings.json
+
+wyswietla output uzycia narzedzi:
+
+{
+  "session_id": "abc123",
+  "cwd": "/Users/patryk/projekt",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "cat .env",
+    "description": "Read environment file"
+  }
+}

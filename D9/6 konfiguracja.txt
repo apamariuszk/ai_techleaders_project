@@ -1,0 +1,23 @@
+.claude/settings.json
+
+enabled: true włącza sandbox.
+allowUnsandboxedCommands: false nie pozwala wywoływać komend poza sandboxem.
+filesystem.denyRead odmawia odczytu wskazanych lokalizacji.
+
+
+{
+  "permissions": {
+    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(~/.ssh/**)", "Read(~/.aws/**)"]
+  },
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": ["~/.ssh", "~/.aws", "~/.config/gh", "~/.kube", "~/.npmrc", "~/.pypirc", "~/**/.env"]
+    },
+    "network": {
+      "allowedDomains": ["github.com", "api.github.com", "registry.npmjs.org"],
+      "deniedDomains": ["169.254.169.254", "metadata.google.internal"]
+    }
+  }
+}
