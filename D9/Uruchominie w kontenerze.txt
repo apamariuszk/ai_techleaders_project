@@ -1,0 +1,5 @@
+cd /sciezka/do/obcego-repo
+docker run --rm -it -v "$PWD":/work -w /work node:22 bash
+# w kontenerze:
+npm install -g @anthropic-ai/claude-code
+claude          # logujesz się przez /login, Twoich sekretów tu nie ma

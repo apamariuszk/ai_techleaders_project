@@ -1,0 +1,9 @@
+# ~/.zshrc albo ~/.bashrc
+alias agent-audit='find . \( -path ./node_modules -o -path ./.git \) -prune -o \
+  \( -name ".mcp.json" -o -name "CLAUDE.md" -o -name "AGENTS.md" -o -name ".cursorrules" \
+     -o -path "*/.claude/*" -o -path "*/.agents/*" -o -path "*/.codex/*" -o -path "*/.github/workflows/*" \) \
+  -type f -print'
+
+# podgląd najgroźniejszych miejsc w tych plikach
+alias agent-audit-hot='grep -RInE "\"hooks\"|enableAllProjectMcpServers|\"allow\"|mcpServers|npx|curl|wget" \
+  .claude .mcp.json .codex 2>/dev/null'
