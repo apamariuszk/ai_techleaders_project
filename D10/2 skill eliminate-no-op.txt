@@ -1,0 +1,4 @@
+https://github.com/pat-lewczuk/skills/blob/main/skills/eliminate-no-op/SKILL.md
+
+
+/eliminate-no-op AGENTS.md
