@@ -1,0 +1,11 @@
+
+Konfiguracja aplikacji przed ręcznym testem:
+
+Tell me what I need to configure in .env so I can run the app and test Epic 02 in the browser.
+
+##############################
+
+Instrukcja lokalnego testowania aplikacji:
+
+What's the best way step by step to test it locally? 
+Let me know how to configure the app or use the test env to open and test it manually.

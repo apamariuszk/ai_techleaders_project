@@ -15,3 +15,10 @@ Update their statuses and progress comments according to the project SDLC.
 
 Use subagents and cheaper  models (Luna/Sonnet) for repeatable/mechanical tasks
 
+
+
+
+tworzy w podfolderze .ai/tmp working tree dla tego pullrequesta,
+w podfolderze runs
+
+.ai/tmp/<workingtree>/.ai/runs/ -> pliki md z aktaulnym stanem runu
