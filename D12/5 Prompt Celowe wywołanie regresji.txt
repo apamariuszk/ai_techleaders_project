@@ -1,0 +1,3 @@
+/om-auto-create-pr I want to test breaking integration tests 
+so modify the app - without adjusting the integration tests - 
+that the user can publish page without any technology selected.

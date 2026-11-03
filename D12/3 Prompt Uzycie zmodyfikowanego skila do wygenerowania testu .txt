@@ -1,0 +1,2 @@
+Use /om-integration-tests and create an integration test for the case where the user is logged in as a mentor and gets to Edit my profile. 
+He/she should not be able to publish the profile page without at least one technology he/she is specialized in being selected.

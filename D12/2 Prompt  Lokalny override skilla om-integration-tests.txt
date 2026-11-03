@@ -1,0 +1,5 @@
+OK, I need you to use the local override method to extend the om-integration-tests skill. I want the skill to ALWAYS put the markown scenario into `.ai/qa` folder - with the naming strategy like: `.ai/qa/{AREA}/{AREA}-{number}-{slug}.md`.
+
+Inside every scenario, please also put a link to the actual TypeScript test implementation so I can easily relate.
+
+Additionaly, please extend the skill ruleset to always apply the best practices described in the: ~/Downloads/best-practices-testow-integracyjnych.md

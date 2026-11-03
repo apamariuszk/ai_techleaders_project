@@ -1,0 +1,3 @@
+Use /om-integration-tests to analyze 
+the specs of Epic 01 and Epic 02 - find the uncovered scenarios 
+and prepare integration tests for them.
