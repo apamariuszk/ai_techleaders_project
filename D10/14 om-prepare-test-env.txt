@@ -1,0 +1,3 @@
+
+przygotowuje srodowisko testowe
+/om-prepare-test-env 
