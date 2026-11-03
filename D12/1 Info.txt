@@ -1,0 +1,20 @@
+skill
+om-prepare-test-env
+przygotowuje srodowisko pod testy m.in:
+
+generuje skrypt:
+./ai/script/test-env-up.sh
+
+###########################
+
+# skrypt automatyzuje uruchomienie środowiska testów integracyjnych:
+tests/integration/global-setup.ts
+
+###########################
+
+skill:
+
+om-auto-verify-qa-pr
+
+
+
