@@ -10,6 +10,8 @@ generuje skrypt:
 # skrypt automatyzuje uruchomienie środowiska testów integracyjnych:
 tests/integration/global-setup.ts
 
+uzywa m.in test-containers, postgres stawia apke na losowym porcie i odapla testy
+
 ###########################
 
 skill:
