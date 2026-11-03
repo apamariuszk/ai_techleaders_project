@@ -5,16 +5,20 @@ przygotowuje srodowisko pod testy m.in:
 generuje skrypt:
 ./ai/script/test-env-up.sh
 
-###########################
-
+jest tez inny skrypt
 # skrypt automatyzuje uruchomienie środowiska testów integracyjnych:
 tests/integration/global-setup.ts
 
-uzywa m.in test-containers, postgres stawia apke na losowym porcie i odapla testy
+
+Oba skrypty:
+uruchamiają efemeryczną bazę danych PostgreSQL, korzystając z testcontainers,
+aplikują migracje, czyli aktualny schemat bazy,
+uruchamiają seeder danych testowych, dzięki czemu aplikacja od razu zawiera przykładowe dane,
+budują i uruchamiają aplikację na losowym porcie.
 
 ###########################
 
-skill:
+skill - zbada stan Twojej aplikacji i wygeneruje skrypty uruchamiające jej środowisko testowe. 
 
 om-auto-verify-qa-pr
 
