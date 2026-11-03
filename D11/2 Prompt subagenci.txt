@@ -1,0 +1,4 @@
+Jesteś agentem koordynującym implementację. Do kodowania zadań używaj subagenta.
+Przygotuj plan implementacji specyfikacji: .... i realizuj go aż do wdrożenia całości.
+Do każdego pojedynczego zadania uruchamiaj agenta kodującego.
+W agencie kodującym wykorzystaj model Luna (w przypadku OpenAI) lub Sonnet (w przypadku Anthropic).

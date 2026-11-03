@@ -1,0 +1,4 @@
+
+https://arxiv.org/abs/2608.21156
+
+https://github.com/DEEP-JLU/Awesome-Graph-Engineering
