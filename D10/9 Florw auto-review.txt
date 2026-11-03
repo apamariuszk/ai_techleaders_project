@@ -1,0 +1,9 @@
+
+om-auto-review  (nr issue)
+Później uruchamiany jest skill om-code-review.
+ Na bazie wyniku jego działania podejmowana jest decyzja, czy zadanie jest zaakceptowane, czy wymaga zmian.
+ 
+ Ten skill ma też opcję autofix. Stąd już tylko krok do Graph Engineeringu.
+ 
+ 
+ skill ma specjalny tryb spec-review, używany do challengowania specyfikacji.

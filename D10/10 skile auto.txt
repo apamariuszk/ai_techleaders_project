@@ -1,0 +1,17 @@
+om-auto-create-pr i om-auto-create-pr-loop
+
+oraz om-auto-continue-pr i oraz om-auto-continue-pr-loop
+
+tworzyć PR z dokumentacją (mix om-auto-create-pr ze spec-writing lub z om-mockup-prototype).
+
+om-auto-write-spec - przyjmuje domyslne zalozenia do specyfikacji
+
+om-auto-implement-spec to opakowanie to opakowanie dla skilli om-auto-create-pr-*, 
+które w pierwszym kroku dodatkowo sprawdza, gdzie znajduje się specyfikacja zadania, które chcemy wdrożyć. W kroku trzecim przepływ zmusza agenta do publikacji zrzutów ekranu, 
+dzięki czemu nie trzeba prosić o to osobno, tak jak zrobiliśmy w poprzednim kroku.
+
+
+om-auto-implement-spec moze wybrać: om-auto-create-pr, a nie om-auto-create-pr-loop
+ Chodzi o optymalizację czasu pracy i zużycia tokenów, dlatego przy prostszych specyfikacjach 
+ preferowany jest om-auto-create-pr. Domyślny próg wyboru wynosi 20 kroków planu implementacji.
+ Gdy plan przekracza ten próg, uruchamiany jest wariant -loop.

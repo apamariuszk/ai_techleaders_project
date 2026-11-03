@@ -1,0 +1,19 @@
+2 skill om-spec-writing
+
+niejawnie zapisany:
+
+
+(wykonujac to zadanie uzyj skilla  om-spec-writing)
+I would like to create a specification based on issue number #2 (E02 — Mentors become bookable), but what will be important here is that, 
+during the specification process, we not only create a feature.
+
+
+potem robumy review
+#########
+
+na koniec tworzymy pull request:
+
+om-open-pr
+
+
+wynik jest prka ze specyfikacja

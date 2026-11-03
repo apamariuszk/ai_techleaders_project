@@ -1,0 +1,9 @@
+
+OPIS:
+Podczas pisania specyfikacji możesz na każdym etapie użyć promptu podobnego do poniższego, 
+aby znalazła się ona w otwartym PR-ze.
+
+#####
+PROMPT:
+
+Użyj /om-spec-writing i utwórz pull request ze specyfikacją opisującą: <tutaj brief do stworzenia specyfikacji>.
