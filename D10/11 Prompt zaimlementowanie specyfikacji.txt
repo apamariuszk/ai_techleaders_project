@@ -1,0 +1,17 @@
+/om-auto-implement-spec implement the first spec of Epic 02 "Mentors become bookable" - E02-S01
+
+Epic spec: 2026-09-08-mentors-become-bookable
+Now focus on slice 1 and 2
+
+Here's the design implementation handoff doc: 2026-09-09-e02-design-handoff.md
+Use `storybook` components, examples and page designs where suitable.
+
+Epic umbrella issue: #8. Link the implementation to this issue and the relevant story issues. 
+Update their statuses and progress comments according to the project SDLC.
+
+
+
+###############
+
+Use subagents and cheaper  models (Luna/Sonnet) for repeatable/mechanical tasks
+
