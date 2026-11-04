@@ -1,0 +1,3 @@
+Open the application preview at http://localhost:3000, sign in as the seeded student 
+and try to book a slot starting in half an hour. 
+Tell me what you see on the screen and what POST /api/bookings returned.
