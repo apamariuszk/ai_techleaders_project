@@ -1,0 +1,4 @@
+We already have specification for E04 - S02 - S04 please implement this feature
+accordingly to specification in .ai/specs/2026-10-01-sessions-notes.md
+use dispatch mode and please monitor implementation in this pipeline,
+send to subtask information to use /om-auto-create-pr-loop

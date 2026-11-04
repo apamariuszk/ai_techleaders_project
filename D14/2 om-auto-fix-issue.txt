@@ -1,0 +1,16 @@
+/om-auto-fix-issue 65
+łańcuch odpowiedzialności:
+
+chaining:
+	https://github.com/open-mercato/skills/blob/main/skills/om-auto-fix-issue/SKILL.md
+	
+	
+Krok pierwszy, om-verify-in-repo. Ten skill tylko czyta: sprawdza, czy issue nie jest zamknięte, czy ktoś już nad nim nie pracuje, 
+
+Krok drugi, om-root-cause. Też tylko czyta: szuka przyczyny i wypisuje minimalny zestaw plików do zmiany, niczego nie refaktorując po drodze.
+
+Krok trzeci, om-fix. Dopiero tu coś się zmienia w kodzie. Najpierw claim: labelka in-progress, przypisanie, komentarz. 
+
+Krok czwarty, om-open-pr. Push, pull request z opisem według szablonu, labelki.
+
+Krok piąty, om-auto-review-pr, do którego wrócimy osobno, bo zasługuje na własną sekcję

@@ -1,0 +1,8 @@
+tam gdzie są:
+
+puste stany
+edge cases
+granice
+pieniądze
+czas 
+uprawnienia

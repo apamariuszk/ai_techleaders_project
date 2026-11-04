@@ -1,0 +1,5 @@
+Merge phase 3 from PR #82 into phase 2 from PR #81, 
+then merge phase 2 into phase 1 from PR #79. Resolve any conflicts.
+
+Then prepare PR #79 for merging into master. 
+Leave the merge into master for my decision after testing, review and QA.
