@@ -1,0 +1,17 @@
+cd /workspace
+
+# Stary kod w osobnym worktree.
+base="$(git merge-base master HEAD)"
+git worktree add --detach /workspace/base-65 "$base"
+(cd /workspace/base-65 && npm ci)
+
+# Nowy test + stary kod = RED.
+cp packages/core/src/services/bookings/booking.service.test.ts /workspace/base-65/packages/core/src/services/bookings/
+(cd /workspace/base-65 && npm run test:unit -- booking.service)
+
+# Nowy test + poprawiony kod = GREEN.
+cd /workspace
+npm run test:unit -- booking.service
+
+# Sprzątanie po nagraniu.
+git worktree remove --force /workspace/base-65

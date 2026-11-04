@@ -1,0 +1,10 @@
+Check whether the regression test actually demonstrates that the current PR or branch fixes the reported bug, using RED/GREEN verification.
+
+1. Identify the PR, fix branch and its base from the repository and PR metadata. Record the exact commits: the fixed revision and the common base before the fix. If the scope is ambiguous, explain what information is missing and stop.
+2. Read the bug description and diff. Choose an added or changed test covering that exact case and identify the expected assertion. If no such test exists, report missing evidence instead of choosing an unrelated test.
+3. Prepare two isolated worktrees or checkouts at the recorded commits. Do not change the user's working branch or uncommitted files; prepare dependencies, environment and test data according to the project instructions.
+4. On the old revision, add only the selected test from the fixed revision and its necessary test helpers, without the implementation fix. If the test cannot be separated from the implementation, explain the limitation and do not count the run as RED/GREEN evidence.
+5. Run the test against the old code. It must fail on the assertion corresponding to the reported bug; an import, configuration, dependency or database failure is not a RED result demonstrating the defect.
+6. Run the exact same, unchanged test against the fixed code with equivalent data and conditions. It must pass, producing GREEN.
+7. If the old code passes, reproduction fails or the fixed code still fails, report the result and its cause or missing information. Do not change assertions merely to obtain the expected colors.
+8. Return a short report: both commits, the test file and name, the assertion checked, the commands executed and the actual RED/GREEN results with the relevant output excerpt. Remove only worktrees and resources you created; do not push or merge anything.

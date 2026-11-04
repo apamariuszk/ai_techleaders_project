@@ -1,4 +1,4 @@
-om-auto-qa-pr
+/om-auto-qa-pr 68 --self-qa-signoff
 
 Sposób drugi: om-auto-qa-pr z numerem PR-a. Skill stawia aplikację przez om-prepare-test-env, 
 wyprowadza z diffa scenariusz i próbuje przejść go w prawdziwej przeglądarce. 
