@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Narzędzia do równoległych agentów a zasady lekcji 13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --ink:#1b2430; --muted:#5b6673; --line:#d5dbe2;
+  --go:#2b9348; --go-bg:#d8f0de; --mid:#c98a00; --mid-bg:#fff0c2; --no:#c73e54; --no-bg:#fbdde2;
+  --unk:#8a96a3; --cez:#2f5bea; --cez-bg:#e6ecfd; --focus:#2f5bea;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141a21; --surface:#1c242e; --ink:#e6ebf0; --muted:#9aa6b2; --line:#2e3946;
+    --go:#55c271; --go-bg:#1d3a26; --mid:#e8b33a; --mid-bg:#3b3116; --no:#ef6f84; --no-bg:#40202a;
+    --unk:#7d8996; --cez:#7f9cff; --cez-bg:#1f2a4a; --focus:#7f9cff;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141a21; --surface:#1c242e; --ink:#e6ebf0; --muted:#9aa6b2; --line:#2e3946;
+  --go:#55c271; --go-bg:#1d3a26; --mid:#e8b33a; --mid-bg:#3b3116; --no:#ef6f84; --no-bg:#40202a;
+  --unk:#7d8996; --cez:#7f9cff; --cez-bg:#1f2a4a; --focus:#7f9cff;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;font-variation-settings:"wdth" 100;line-height:1.5}
+.wrap{max-width:1320px;margin:0 auto;padding:40px 24px 64px}
+h1{font-size:clamp(28px,4vw,46px);line-height:1.08;font-weight:800;font-variation-settings:"wdth" 112;margin:0 0 12px;max-width:22ch;letter-spacing:-.01em}
+.lede{color:var(--muted);font-size:18px;max-width:62ch;margin:0 0 28px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 18px;padding:0;list-style:none;font-size:15px}
+.legend li{display:flex;align-items:center;gap:8px}
+.board{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow-x:auto}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1080px}
+th,td{padding:0;text-align:center}
+thead .grp th{font-size:13px;font-weight:600;color:var(--muted);padding:12px 6px 6px;border-bottom:2px solid var(--line);text-align:left;font-variation-settings:"wdth" 90}
+thead .grp th + th{border-left:1px solid var(--line)}
+thead .crit th{vertical-align:bottom;padding:10px 4px 10px;border-bottom:1px solid var(--line)}
+.crit button{all:unset;cursor:pointer;display:block;width:100%;font-size:13.5px;line-height:1.2;font-weight:600;font-variation-settings:"wdth" 78;padding:4px 2px;border-radius:4px}
+.crit button:focus-visible,.cellbtn:focus-visible,.toolbar button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.crit .new{display:block;margin-top:4px;font-size:11px;font-weight:500;color:var(--cez)}
+.grpstart{border-left:1px solid var(--line)}
+th.tool,td.tool{position:sticky;left:0;background:var(--surface);text-align:left;z-index:1;min-width:210px;border-right:1px solid var(--line)}
+td.tool{padding:10px 14px}
+td.tool b{display:block;font-size:16px;font-weight:700}
+td.tool span{font-size:13px;color:var(--muted)}
+tbody tr td{border-bottom:1px solid var(--line)}
+tbody tr.sep td{border-bottom:2px dashed var(--line)}
+tbody tr.cez td{background:var(--cez-bg)}
+tbody tr.cez td.tool{box-shadow:inset 4px 0 0 var(--cez)}
+.score{margin-top:8px}
+.score .bar{display:flex;height:6px;border-radius:3px;background:var(--no-bg);overflow:hidden;max-width:170px}
+.score .bar i{display:block;height:100%}
+.score .bg{background:var(--go)}
+.score .by{background:var(--mid)}
+td.tool .score .sc{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
+td.tool .score .sc b{display:inline;font-size:12.5px;color:var(--ink);font-weight:700}
+td.c{height:54px;min-width:70px}
+.col-hot{background:color-mix(in srgb,var(--cez) 7%,transparent)}
+.cellbtn{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-size:15px;font-weight:800;line-height:1}
+.dot-G{background:var(--go-bg);color:var(--go);box-shadow:inset 0 0 0 2px var(--go)}
+.dot-Y{background:var(--mid-bg);color:var(--mid);box-shadow:inset 0 0 0 2px var(--mid)}
+.dot-R{background:var(--no-bg);color:var(--no);box-shadow:inset 0 0 0 2px var(--no)}
+.dot-U{background:transparent;color:var(--unk);box-shadow:inset 0 0 0 1.5px var(--unk);border:0;outline:1px dashed transparent;font-weight:600}
+.cellbtn[aria-pressed="true"]{transform:scale(1.18);box-shadow:inset 0 0 0 2px currentColor,0 0 0 3px var(--surface),0 0 0 5px var(--focus)}
+tfoot td{font-size:12.5px;color:var(--muted);padding:8px 2px;border-top:1px solid var(--line)}
+tfoot td.tool{font-size:12.5px;padding:8px 14px}
+.detail{margin:18px 0 0;padding:18px 20px;border-left:4px solid var(--cez);background:var(--surface);border-radius:0 6px 6px 0;min-height:96px}
+.detail h2{margin:0 0 6px;font-size:19px;font-weight:700}
+.detail p{margin:0;max-width:75ch;color:var(--ink)}
+.detail .why{color:var(--muted);margin-top:8px;font-size:15px}
+.detail a{color:var(--cez)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.toolbar button{font:inherit;font-size:14px;padding:6px 12px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.toolbar button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.hide-unk .dot-U{opacity:.18}
+.feat{margin:48px 0 0}
+.feat h2{font-size:26px;margin:0 0 6px;font-variation-settings:"wdth" 108}
+.feat>p{color:var(--muted);max-width:70ch;margin:0 0 14px}
+#f{min-width:1240px}
+#f thead th{font-size:13px;font-weight:600;padding:12px 6px;border-bottom:1px solid var(--line);vertical-align:bottom;font-variation-settings:"wdth" 82;line-height:1.2}
+#f thead th.cz{color:var(--cez)}
+#f tbody th{position:sticky;left:0;background:var(--surface);text-align:left;font-weight:500;font-size:14.5px;padding:9px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:220px;z-index:1}
+#f tbody td{border-bottom:1px solid var(--line);padding:8px 4px;vertical-align:middle;min-width:92px}
+#f tbody td.cz{background:var(--cez-bg)}
+#f tr.fg th{background:var(--bg);font-size:13px;font-weight:700;color:var(--muted);padding:14px 14px 6px;border-right:0}
+#f tr.fg td{background:var(--bg)}
+.fv{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;font-size:13px;font-weight:800}
+.fn{display:block;font-size:11.5px;line-height:1.25;color:var(--muted);margin-top:3px;font-variation-settings:"wdth" 85}
+.ft{font-size:12.5px;line-height:1.3;font-variation-settings:"wdth" 85}
+#f tfoot th{position:sticky;left:0;background:var(--surface);text-align:left;font-size:13px;font-weight:600;padding:12px 14px;border-right:1px solid var(--line)}
+#f tfoot td{padding:10px 6px;font-size:12.5px;color:var(--muted)}
+#f tfoot td.cz{background:var(--cez-bg)}
+#f tfoot b{display:block;font-size:15px;color:var(--ink)}
+.fbar{display:flex;height:5px;border-radius:3px;background:var(--no-bg);overflow:hidden;margin:5px auto 0;max-width:70px}
+.fbar i{display:block;height:100%}
+.fsum{margin:28px 0 0}
+.fsum h3{font-size:20px;margin:0 0 14px}
+.fsum h4{font-size:16px;margin:0 0 6px;font-weight:700;font-variation-settings:"wdth" 95}
+.fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;margin:0 0 26px}
+.fcols div{border-top:3px solid var(--ink);padding-top:12px}
+.fcols p{margin:0;color:var(--muted);font-size:15.5px}
+.pick{min-width:0;width:100%;max-width:820px;background:var(--surface);border:1px solid var(--line);border-radius:6px;border-collapse:separate;margin:8px 0 14px}
+.pick th,.pick td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-size:15px}
+.pick tr:last-child th,.pick tr:last-child td{border-bottom:0}
+.pick th{font-weight:500;color:var(--muted);width:55%}
+.pick td{font-weight:600}
+.fnote{font-size:13.5px;color:var(--muted);max-width:75ch}
+.method{margin:44px 0 0}
+.method h2{font-size:22px;margin:0 0 6px;font-variation-settings:"wdth" 105}
+.method>p{color:var(--muted);max-width:70ch;margin:0 0 14px}
+.mtable{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.mtable table{min-width:820px}
+.mtable th,.mtable td{text-align:left;vertical-align:top;padding:10px 12px;font-size:14.5px;border-bottom:1px solid var(--line)}
+.mtable thead th{font-size:13px;color:var(--muted);font-weight:600}
+.mtable tbody th{font-weight:600;width:200px}
+.findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;margin:44px 0 0}
+.findings h3{font-size:18px;line-height:1.25;margin:0 0 6px;font-weight:700;font-variation-settings:"wdth" 95}
+.findings p{margin:0;color:var(--muted);font-size:15.5px}
+.findings div{border-top:3px solid var(--ink);padding-top:12px}
+.findings div.warn{border-top-color:var(--no)}
+.sources{margin:48px 0 0;font-size:14px;color:var(--muted)}
+.sources h2{font-size:16px;color:var(--ink);margin:0 0 8px}
+.sources ul{margin:0;padding-left:18px;columns:2 320px;column-gap:32px}
+.sources li{margin:0 0 6px;break-inside:avoid}
+.sources a{color:inherit}
+@media (prefers-reduced-motion:no-preference){.cellbtn{transition:transform .15s ease}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Narzędzia do równoległych agentów a zasady tej lekcji</h1>
+  <p class="lede">To nie jest ranking. Sprawdzamy, czy narzędzie chroni Twoją uwagę i review, czy tylko pozwala dołożyć kolejnych agentów. Każde kryterium ma techniczny test opisany pod tabelą. Jeśli dokumentacja nie opisuje funkcji, przyjmujemy, że jej nie ma. Kliknij kropkę, żeby zobaczyć uzasadnienie, albo nagłówek, żeby zobaczyć test.</p>
+
+  <ul class="legend" aria-label="Legenda">
+    <li><span class="cellbtn dot-G" aria-hidden="true">✓</span> spełnia test</li>
+    <li><span class="cellbtn dot-Y" aria-hidden="true">~</span> częściowo albo z ryzykiem</li>
+    <li><span class="cellbtn dot-R" aria-hidden="true">✕</span> brak, także gdy dokumentacja tego nie opisuje</li>
+  </ul>
+
+  <div class="toolbar">
+        <button type="button" id="tNew" aria-pressed="false">Pokaż tylko nowe kryteria</button>
+  </div>
+
+  <div class="board">
+    <table id="m">
+      <thead><tr class="grp" id="grpRow"></tr><tr class="crit" id="critRow"></tr></thead>
+      <tbody id="body"></tbody>
+      <tfoot><tr id="foot"></tr></tfoot>
+    </table>
+  </div>
+
+  <section class="detail" id="detail" aria-live="polite">
+    <h2>Kliknij dowolną kropkę</h2>
+    <p>Każde pole ma krótkie uzasadnienie. Czerwone pole z dopiskiem „nie opisano” oznacza, że funkcji nie znaleźliśmy w dokumentacji i przyjęliśmy jej brak.</p>
+  </section>
+
+  <section class="feat" aria-labelledby="fh">
+    <h2 id="fh">Porównanie funkcji</h2>
+    <p>Klasyczna tabela funkcji, bez oceniania pod zasady lekcji. ✓ jest, ~ częściowo albo z ograniczeniem, ✕ brak lub nie opisano w dokumentacji.</p>
+    <div class="board"><table id="f"><thead><tr id="fhead"></tr></thead><tbody id="fbody"></tbody><tfoot><tr id="ffoot"></tr></tfoot></table></div>
+    <div class="fsum">
+      <h3>Podsumowanie</h3>
+      <div class="fcols">
+        <div>
+          <h4>Standard w całej kategorii</h4>
+          <p>Diff w aplikacji i wiele projektów w jednym widoku ma każde z 11 narzędzi. Worktree na zadanie i API lub CLI ma 10, a powiadomienia, automatyzacje i PR z aplikacji ma 9. Te funkcje nie decydują o wyborze, są warunkiem wejścia.</p>
+        </div>
+        <div>
+          <h4>Rzadkie funkcje</h4>
+          <p>Kolejkę zadań z limitem i lokalne checki z ponowieniem ma tylko Cezar. Koszt na zadanie pokazują dwa narzędzia (Cezar i Copilot), warianty best-of-N cztery (Cezar, Cursor, Emdash, Orca). Rynek inwestuje w uruchamianie agentów, mniej w kontrolę nad nimi.</p>
+        </div>
+        <div>
+          <h4>Dwa profile narzędzi</h4>
+          <p>Aplikacje dostawców (Codex, Copilot, Cursor, Claude Code, Antigravity) wygrywają sandboxem, chmurą i wbudowaną przeglądarką, ale wiążą z jednym agentem. Niezależne ADE (Conductor, Superset, Emdash, Orca, T3 Code) dają dowolnego agenta i zdalny host, za to zwykle bez kolejki, checków i kosztu.</p>
+        </div>
+      </div>
+      <h4>Kiedy co wybrać</h4>
+      <table class="pick">
+        <tbody>
+          <tr><th scope="row">Pracujesz z jednym dostawcą i chcesz wygody</th><td>aplikacja tego dostawcy: Claude Code desktop, Codex albo Copilot app</td></tr>
+          <tr><th scope="row">Mac, kilka agentów obok siebie, dopracowany review</th><td>Conductor</td></tr>
+          <tr><th scope="row">Dowolny agent CLI, open source, praca po SSH</th><td>Emdash albo Orca</td></tr>
+          <tr><th scope="row">Backlog na noc, kolejka z limitem, własny serwer</th><td>Cezar</td></tr>
+        </tbody>
+      </table>
+      <p class="fnote">Lista funkcji częściowo pokrywa się z kryteriami lekcji, więc wynik Cezara (17 z 21) też nie jest neutralny. Liczymy tylko funkcje ocenione ✓; wiersze opisowe (platformy, licencja, agenci, trackery) nie wchodzą do sumy.</p>
+    </div>
+
+  </section>
+
+  <section class="method" aria-labelledby="mh">
+    <h2 id="mh">Jak sprawdzaliśmy</h2>
+    <p>Dla każdego kryterium najpierw ustaliliśmy test techniczny, potem szukaliśmy go w dokumentacji, changelogach i README. Brak opisu traktujemy jako brak funkcji.</p>
+    <div class="mtable"><table><thead><tr><th>Kryterium</th><th>Test</th><th>Zielony</th><th>Żółty</th></tr></thead><tbody id="mbody"></tbody></table></div>
+  </section>
+
+  <section class="findings" aria-label="Wnioski">
+    <div><h3>Izolacja, diff i powiadomienia to standard</h3><p>Worktree, review diffu i sygnał „czeka na Ciebie” ma większość narzędzi. Nie wyróżniają już niczego.</p></div>
+    <div><h3>Kolejkę zadań z ustawialnym limitem ma tylko Cezar</h3><p>Antigravity ma kolejkę, ale ze stałym limitem pięciu agentów. Codex, Copilot, Cursor, Claude Code, Conductor i T3 kolejkują tylko wiadomości w jednej sesji. Superset, Emdash i Orca nie mają kolejki wcale, a Superset reklamuje „100+ agentów naraz”.</p></div>
+    <div><h3>Kolizji przed startem nie wykrywa nikt</h3><p>T3 Code budzi agenta przy konflikcie w PR, czyli po fakcie. Dokumentacja Codexa po prostu radzi, żeby dwa wątki nie zmieniały tych samych plików. Tu padają zadania 5 i 6 ze sceny 1.</p></div>
+    <div class="warn"><h3>Gdzie Cezar jest słabszy</h3><p>Zależności między zadaniami i wykrywanie kolizji. Kryteria pochodzą z tej lekcji, a Cezar był projektowany pod te zasady, więc to nie jest neutralny test.</p></div>
+  </section>
+
+  <section class="sources">
+    <h2>Źródła kryteriów i ocen</h2>
+    <ul>
+      <li><a href="https://hbr.org/2026/03/when-using-ai-leads-to-brain-fry">HBR/BCG, When Using AI Leads to Brain Fry, 03.2026</a></li>
+      <li><a href="https://www.faros.ai/blog/ai-software-engineering">Faros AI, AI Productivity Paradox 2025</a></li>
+      <li><a href="https://arxiv.org/abs/2603.21489">Geng i Neubig, CAID</a>, <a href="https://arxiv.org/abs/2608.16801">Destefanis i Aste</a>, <a href="https://arxiv.org/abs/2609.33113">ParallelPilot</a></li>
+      <li><a href="https://github.com/open-mercato/cezar">Cezar, README</a>, <a href="https://openmercatocloud.com/">Open Mercato Sandboxes</a>, <a href="https://openmercatocloud.com/247agentic-cear">Cezar w Sandbox 24/7</a></li>
+      <li><a href="https://developers.openai.com/codex/app/automations">Codex, automatyzacje</a>, <a href="https://developers.openai.com/codex/changelog">changelog</a>, <a href="https://developers.openai.com/codex/glossary">słownik</a></li>
+      <li><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Docs, Copilot app</a>, <a href="https://github.blog/changelog/2026-06-02-expanded-technical-preview-availability-for-the-github-copilot-app/">changelog 06.2026</a></li>
+      <li><a href="https://cursor.com/changelog/3-0">Cursor 3.0</a>, <a href="https://cursor.com/docs/configuration/worktrees.md">worktrees</a>, <a href="https://cursor.com/changelog/page/9">automatyzacje</a></li>
+      <li><a href="https://code.claude.com/docs/en/desktop">Claude Code desktop</a>, <a href="https://code.claude.com/docs/en/desktop-quickstart">quickstart</a>, <a href="https://code.claude.com/docs/en/sandboxing">sandboxing</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Google_Antigravity">Antigravity, Wikipedia</a>, <a href="https://www.aibuilderclub.com/blog/google-antigravity-complete-guide">przewodnik</a>, <a href="https://emergent.sh/learn/google-antigravity-review">recenzja</a></li>
+      <li><a href="https://docs.conductor.build/">Conductor, dokumentacja</a>, <a href="https://www.conductor.build/docs/reference/checks">Checks</a>, <a href="https://www.conductor.build/changelog/page/2">changelog</a></li>
+      <li><a href="https://github.com/superset-sh/superset">Superset</a>, <a href="https://docs.superset.sh/faq">FAQ</a>, <a href="https://docs.superset.sh/agent-integration">agenci</a></li>
+      <li><a href="https://github.com/generalaction/emdash">Emdash</a>, <a href="https://github.com/stablyai/orca">Orca</a>, <a href="https://github.com/pingdotgg/t3code/releases">T3 Code, releases</a></li>
+    </ul>
+    <p>Stan na początek października 2026. Brak opisu w dokumentacji przyjęto jako brak funkcji.</p>
+  </section>
+</div>
+
+<script nonce="0oAPXx0HrU5m7vxj9jjgTw==">
+const GROUPS=[
+  {name:"Uwaga człowieka",keys:["wip","triage","batch","log"]},
+  {name:"Jakość i review",keys:["checks","merge","review","sandbox"]},
+  {name:"Koordynacja",keys:["worktree","plan","collide"]},
+  {name:"Ekonomia i kontrola",keys:["cost","agent","host"]}
+];
+const CRIT={
+  wip:{t:"Limit WIP i kolejka",why:"Zasada 1: limit to liczba strumieni, które realnie zrecenzujesz. BCG: problemy zaczynają się powyżej około trzech narzędzi.",test:"Czy mogę zlecić zadanie na zapas, gdy wszystkie sloty są zajęte, i czy ustawię maksymalną liczbę równoległych agentów?",g:"kolejka zadań i ustawialny limit równoległości",y:"tylko kolejka wiadomości w obrębie jednej sesji albo stały limit",r:"brak kolejki zadań i limitu"},
+  triage:{t:"Sygnał „potrzebuję Cię”",why:"ParallelPilot (Triaging): pytania agenta i błędy to sygnały, które ludzie najczęściej przegapiali.",test:"Czy narzędzie pokazuje stan „czeka na Ciebie” i wysyła powiadomienie, gdy agent ma pytanie albo prosi o akceptację?",g:"stan i powiadomienie o pytaniu albo akceptacji",y:"tylko powiadomienie o zakończeniu albo hooki do samodzielnej konfiguracji",r:"brak"},
+  batch:{t:"Automatyzacje i praca wsadowa",why:"Zasada 3: przerwania batchujemy. Utrzymanie puszczamy w nocy i odbieramy rano.",test:"Czy zadanie uruchomi się samo według harmonogramu albo zdarzenia, bez mojej obecności?",g:"harmonogram albo wyzwalacze zdarzeń",y:"tylko praca w tle uruchamiana ręcznie",r:"brak"},
+  log:{t:"Dziennik sesji",why:"ParallelPilot (Logging): ludzie nie czytają długich logów, tylko każą agentom pisać streszczenia i dzienniki.",test:"Czy po powrocie do zadania odtworzę, co agent zrobił i zdecydował, bez czytania surowego logu?",g:"dziennik, streszczenia, artefakty albo wyszukiwalna historia",y:"tylko transkrypt i wznowienie sesji",r:"brak"},
+  checks:{t:"Checki przed review",why:"Zasada 4 i CAID: zadanie trafia do człowieka dopiero po testach, z automatycznym ponowieniem.",test:"Czy narzędzie samo uruchamia testy albo checki, zanim zadanie trafi do mnie, i odsyła błąd do agenta?",g:"konfigurowalna bramka z ponowieniem albo automatyczna naprawa CI",y:"tylko podgląd wyników CI albo hooki do samodzielnej konfiguracji",r:"brak"},
+  merge:{t:"Człowiek merguje",why:"Prawo Amdahla i Faros (+91% czasu review): review to wąskie gardło, którego nie obchodzimy automatycznym merge'em.",test:"Czy domyślnie tylko człowiek decyduje o merge'u?",g:"brak automatycznego merge'a (także gdy nie jest opisany)",y:"automatyczny merge dostępny jako opcja",r:"automatyczny merge domyślnie"},
+  review:{t:"Wsparcie review",nw:1,why:"Faros: czas review +91%, PR-y większe o 154%. Liczy się, czy narzędzie skraca review.",test:"Czy przejrzę diff w narzędziu, odeślę uwagi do agenta albo porównam warianty tego samego zadania?",g:"diff i uwagi wracające do agenta albo porównanie wariantów",y:"sam podgląd diffu",r:"brak"},
+  sandbox:{t:"Sandbox i testy poza zasięgiem",nw:1,why:"Destefanis i Aste: w czterech piątych przebiegów agenty sięgały po ukryte testy.",test:"Czy polecenia agenta są izolowane od hosta (sandbox systemowy, VM, kontener), a nie tylko od innych zadań przez worktree?",g:"wbudowana izolacja systemu plików i sieci albo VM",y:"częściowa: zgoda na pliki poza workspace, wczesna lub tylko chmurowa opcja",r:"brak"},
+  worktree:{t:"Izolacja worktree",why:"Geng i Neubig: izolowane worktree dały 63,3% wobec 55,5% przy wspólnym katalogu.",test:"Czy każde zadanie dostaje automatycznie własny worktree i gałąź?",g:"automatycznie lub jako opcja przy starcie",y:"tylko ręcznie",r:"brak"},
+  plan:{t:"Planowanie i zależności",why:"Destefanis i Aste: interfejs bez właściciela kończył się porażką w 10 na 10 przebiegów.",test:"Czy ustawię kolejność i zależności między zadaniami (graf, fale, blokady)?",g:"zależności między zadaniami",y:"plan w obrębie jednego zadania albo zadania importowane z trackera",r:"brak"},
+  collide:{t:"Wykrywanie kolizji między sesjami",nw:1,why:"Scena 4: zadania na tych samych plikach idą sekwencyjnie. ParallelPilot wskazywał wspólne pliki przed startem.",test:"Czy narzędzie ostrzeże, że dwa równoległe zadania dotykają tych samych plików albo wchodzą w konflikt?",g:"ostrzeżenie przed startem",y:"wykrycie po fakcie, np. konflikt w PR",r:"brak"},
+  cost:{t:"Koszt na zadanie",nw:1,why:"CAID: praca wieloagentowa kosztuje około 2× więcej i nie skraca czasu. Mierzymy zadania, nie ludzi.",test:"Czy widzę tokeny albo koszt dla każdego zadania lub sesji w interfejsie?",g:"koszt albo tokeny per zadanie w UI",y:"per sesja przez komendę lub SDK albo tylko zbiorczo",r:"brak"},
+  agent:{t:"Dowolny agent",why:"Brak przywiązania do jednego dostawcy: mieszanie agentów per zadanie albo per krok.",test:"Czy uruchomię harnessy różnych dostawców (np. Claude Code i Codex)?",g:"co najmniej dwóch dostawców harnessów",y:"wiele modeli, ale jeden harness",r:"jeden dostawca"},
+  host:{t:"Własna infrastruktura 24/7",why:"Kod i klucze u siebie, praca nocna bez włączonego laptopa.",test:"Czy agenci pracują dalej, gdy zamknę laptopa, na moim serwerze albo zdalnym hoście?",g:"własny serwer albo zdalny host",y:"tylko chmura dostawcy albo lokalnie z dostępem z telefonu",r:"tylko lokalnie"}
+};
+const KEYS=GROUPS.flatMap(g=>g.keys);
+document.getElementById("mbody").innerHTML=KEYS.map(k=>`<tr><th scope="row">${CRIT[k].t}</th><td>${CRIT[k].test}</td><td>${CRIT[k].g}</td><td>${CRIT[k].y}</td></tr>`).join("");
+const N="Nie opisano w dokumentacji — przyjęto brak.";
+const TOOLS=[
+ {n:"Cezar",s:"open source, MIT",cez:1,v:{
+  wip:["G","maxParallel (domyślnie 2) i limit pamięci; nadmiar czeka w kolejce FIFO, która przeżywa restart. W Open Mercato Sandbox slot zwalnia się, gdy agent czeka na odpowiedź."],
+  triage:["G","Dashboard pokazuje, co czeka na Twoją odpowiedź albo review; powiadomienia w ustawieniach."],
+  batch:["G","Tryb Autonomous, skille jako playbooki, automatyzacje z GitHuba, Jiry i Lineara, tryb VPS 24/7."],
+  log:["G","Dziennik Notes przy każdym zadaniu, pełny zapis zdarzeń do odtworzenia, claude --resume."],
+  checks:["G","Workflow YAML z krokami-checkami; onFail cofa do wcześniejszego kroku z wynikiem błędu, maksymalnie N razy."],
+  merge:["G","Nic nie merguje się samo: review gate, notatki wracają do sesji, draft PR."],
+  review:["G","Warianty ×2 i ×3 z porównaniem diffów obok siebie; review gate z diffem i notatkami do agenta."],
+  sandbox:["G","W Open Mercato Sandbox Cezar i agenci działają w izolowanej VM. Lokalnie agent ma pełny shell w worktree, ale okrojone zmienne środowiskowe, osobny katalog tymczasowy i redakcję sekretów."],
+  worktree:["G","Worktree na zadanie, gałąź cez/<id8> zawsze zostaje."],
+  plan:["Y","„Plan first”: AI proponuje łańcuch kroków w obrębie zadania. Zależności między zadaniami nie opisano."],
+  collide:["R","Jest tylko blokada pracy w katalogu głównym repozytorium; ostrzeżeń o wspólnych plikach między zadaniami nie opisano."],
+  cost:["G","Tokeny i koszt na krok i na zadanie w tabeli zadań."],
+  agent:["G","Claude Code, Codex, Copilot, Cursor, Junie, OpenCode i pi; backend per zadanie albo per krok."],
+  host:["G","Własny VPS z instalatorem albo Open Mercato Sandbox online 24/7; kokpit na telefonie."]}},
+ {n:"Codex w ChatGPT desktop",s:"OpenAI",v:{
+  wip:["Y","Kolejka wiadomości w obrębie wątku (Queue / Steer). Kolejki zadań i limitu równoległych wątków nie opisano."],
+  triage:["G","Powiadomienia, gdy w trybie planowania Codex zadaje pytanie; wskaźniki statusu wątków i kolejki."],
+  batch:["G","Automatyzacje według harmonogramu w worktree; wyniki trafiają do kolejki review."],
+  log:["Y","Transkrypty zapisywane lokalnie i wznawianie wątków."],
+  checks:["R",N+" Auto-review dotyczy akceptacji poleceń, nie testów."],
+  merge:["G","Automatycznego merge'a nie opisano; wyniki trafiają do kolejki review."],
+  review:["G","Panel review z diffem i komentarzami inline, /review."],
+  sandbox:["G","Natywny sandbox systemowy z trybami dostępu."],
+  worktree:["G","Wbudowane worktree, także dla automatyzacji."],
+  plan:["Y","Tryb planowania w obrębie wątku."],
+  collide:["R","Dokumentacja tylko radzi, by dwa wątki nie zmieniały tych samych plików."],
+  cost:["Y","Panel analityczny użycia dla administratora; kosztu per wątek nie opisano."],
+  agent:["R","Tylko Codex i modele OpenAI."],
+  host:["Y","Lokalnie albo w Codex cloud u OpenAI."]}},
+ {n:"GitHub Copilot app",s:"GitHub",v:{
+  wip:["Y","Kolejka wiadomości FIFO w obrębie sesji. Kolejki sesji i limitu równoległości nie opisano."],
+  triage:["R",N+" Tryb Interactive czeka na Twoją odpowiedź, ale powiadomień o tym nie opisano."],
+  batch:["G","Automatyzacje według harmonogramu albo na żądanie, także w chmurze."],
+  log:["G","Historia sesji i wnioski z /chronicle; canvases jako sprawdzalne powierzchnie pracy."],
+  checks:["G","Agent Merge naprawia nieprzechodzące checki; weryfikacja UI w przeglądarce."],
+  merge:["Y","Agent Merge może sam zmerge'ować po spełnieniu warunków repozytorium."],
+  review:["G","Diff, canvases i konfigurowalne code review per repozytorium."],
+  sandbox:["G","Lokalny i chmurowy sandbox, przełączany /sandbox."],
+  worktree:["G","Każda sesja we własnym worktree i gałęzi."],
+  plan:["Y","Tryb Plan w obrębie sesji."],
+  collide:["R",N],
+  cost:["G","Log sesji pokazuje zużycie tokenów; SDK pozwala ustawić budżet na sesję."],
+  agent:["Y","Wiele modeli; Claude Code i Codex jako agenci zewnętrzni w wyższych planach."],
+  host:["Y","Sesje lokalne albo w chmurze GitHuba."]}},
+ {n:"Cursor 3 Agents Window",s:"Cursor",v:{
+  wip:["Y","Kolejka wiadomości w obrębie agenta z możliwością zmiany kolejności. Limitu agentów nie opisano."],
+  triage:["R",N],
+  batch:["G","Automatyzacje według harmonogramu albo zdarzeń ze Slacka, Lineara, GitHuba, PagerDuty i webhooków."],
+  log:["R",N],
+  checks:["Y","Agenty w chmurze nagrywają zrzuty i demo do weryfikacji; bramki testowej nie opisano."],
+  merge:["G","Automatycznego merge'a nie opisano."],
+  review:["G","Widok diffów i panel review; /best-of-n porównuje wyniki kilku modeli."],
+  sandbox:["G","Agenty w chmurze i automatyzacje w chmurowym sandboxie."],
+  worktree:["G","Worktree w Agents Window z automatycznym sprzątaniem."],
+  plan:["Y","Tryb planowania z akceptacją planu."],
+  collide:["R",N],
+  cost:["Y","W Agents Window brak kosztu per sesja; per run tylko przez SDK."],
+  agent:["Y","Wiele modeli, jeden harness Cursora."],
+  host:["Y","Lokalnie, po SSH albo w chmurze Cursora."]}},
+ {n:"Claude Code desktop",s:"Anthropic",v:{
+  wip:["Y","Kolejka wiadomości w obrębie sesji. Kolejki sesji i limitu nie opisano."],
+  triage:["G","Powiadomienie po zakończeniu sesji; push na telefon, gdy sesja z Dispatch potrzebuje akceptacji; widok agentów ze stanem „needs input”."],
+  batch:["G","Zadania zaplanowane i Routines w chmurze."],
+  log:["Y","Transkrypty JSONL z wznawianiem, cofaniem i forkowaniem sesji."],
+  checks:["G","Monitorowanie PR z automatyczną naprawą CI i powiadomieniem po CI."],
+  merge:["Y","Przełącznik auto-merge w pasku statusu CI."],
+  review:["G","Diff z komentarzami do linii i przycisk „Review code”."],
+  sandbox:["G","Sandbox dla poleceń Bash z izolacją systemu plików i sieci (opt-in)."],
+  worktree:["G","Opcja worktree przy starcie sesji."],
+  plan:["Y","Subagenci i panel zadań w obrębie sesji."],
+  collide:["R",N],
+  cost:["Y","Koszt sesji przez /cost i status line; w aplikacji użycie kontekstu i planu."],
+  agent:["R","Tylko Claude Code."],
+  host:["Y","Lokalnie; Routines w chmurze Anthropic."]}},
+ {n:"Google Antigravity 2.0",s:"Google",v:{
+  wip:["Y","Zadania czekają w kolejce, ale limit pięciu agentów jest stały."],
+  triage:["G","Manager view pokazuje oczekujące prośby o akceptację; skrzynka i powiadomienia."],
+  batch:["G","Zaplanowane zadania w tle."],
+  log:["G","Artefakty: listy zadań, plany, zrzuty ekranu, nagrania; historia rozmów."],
+  checks:["Y","Weryfikacja w przeglądarce z nagraniem jako artefaktem; bez bramek testowych."],
+  merge:["G","Automatycznego merge'a nie opisano."],
+  review:["G","Komentarze do artefaktów i diffy plik po pliku."],
+  sandbox:["Y","Polityki wykonywania poleceń w terminalu."],
+  worktree:["R",N],
+  plan:["Y","Plan implementacji do akceptacji; drzewo subagentów w obrębie zadania."],
+  collide:["R",N],
+  cost:["R",N],
+  agent:["Y","Gemini, Claude i GPT-OSS w jednym harnessie Google."],
+  host:["Y","Lokalnie; Managed Agents w chmurze Google."]}},
+ {n:"Conductor",s:"macOS, zamknięte źródła",v:{
+  wip:["Y","Kolejka wiadomości w czacie workspace'u. Kolejki workspace'ów i limitu równoległości nie opisano."],
+  triage:["G","Powiadomienia, gdy agent ma pytanie albo czeka na akceptację planu; wskaźnik „needs permission” i skrót do następnego workspace'u wymagającego uwagi."],
+  batch:["G","Routines: agenci według harmonogramu albo z GitHub Action, w chmurze (plany Pro i Team)."],
+  log:["Y","Checkpointy: zmiany tura po turze z możliwością cofnięcia; transkrypt sesji."],
+  checks:["Y","Zakładka Checks zbiera CI, wątki review i todo i może blokować merge; testów z automatycznym ponowieniem nie opisano."],
+  merge:["G","Mergujesz Ty, gdy workspace jest gotowy; automatycznego merge'a nie opisano."],
+  review:["G","Diff viewer z komentarzami wysyłanymi z powrotem do agenta."],
+  sandbox:["G","Conductor Cloud: izolowane microVM. Lokalnych workspace'ów sandbox nie obejmuje."],
+  worktree:["G","Workspace = osobna gałąź i worktree."],
+  plan:["Y","Tryb planowania z akceptacją; plan można przekazać do nowego czatu."],
+  collide:["R","Nie opisano. Dokumentacja radzi tylko dzielić pracę na niezależne workspace'y."],
+  cost:["Y","Użycie planu Claude w podglądzie kontekstu; kosztu per workspace nie opisano."],
+  agent:["G","Claude Code, Codex, Cursor i OpenCode."],
+  host:["Y","Aplikacja tylko na macOS; Conductor Cloud działa po zamknięciu laptopa, ale w chmurze dostawcy."]}},
+ {n:"Superset",s:"source-available, Elastic 2.0",v:{
+  wip:["R","Kolejki zadań i limitu nie opisano; producent eksponuje „100+ agentów naraz”."],
+  triage:["G","Status agentów i powiadomienia, gdy agent skończy albo czeka."],
+  batch:["G","Automatyzacje według harmonogramu, także na zdalnych hostach."],
+  log:["R",N],
+  checks:["R",N],
+  merge:["G","Automatycznego merge'a nie opisano."],
+  review:["G","Wbudowany diff z edycją."],
+  sandbox:["Y","Agent prosi o zgodę na pliki poza workspace."],
+  worktree:["G","Każdy workspace to osobny worktree."],
+  plan:["Y","Tracker zadań albo Linear; agent startuje z zadania."],
+  collide:["R",N],
+  cost:["R","W dokumentacji jest sekcja Usage, ale kosztu per zadanie nie opisano."],
+  agent:["G","Dowolny agent CLI."],
+  host:["G","Zdalne hosty przez relay, serwer CLI, workspace'y w chmurze."]}},
+ {n:"Emdash",s:"open source, Apache-2.0",v:{
+  wip:["R",N],
+  triage:["G","Status i powiadomienia przez hooki agentów."],
+  batch:["G","Automatyzacje według harmonogramu albo zdarzeń."],
+  log:["Y","Sesje do wznowienia."],
+  checks:["Y","Podgląd checków CI; bez lokalnych bramek."],
+  merge:["G","Merge robisz Ty z poziomu aplikacji."],
+  review:["G","Best-of-N z porównaniem diffów obok siebie."],
+  sandbox:["Y","Emdash Cloud z tymczasowymi workspace'ami, na wczesnym etapie."],
+  worktree:["G","Każdy task we własnym worktree."],
+  plan:["Y","Tickety z ok. 10 trackerów trafiają do agenta."],
+  collide:["R",N],
+  cost:["R",N],
+  agent:["G","Ponad 20 agentów CLI."],
+  host:["G","Lokalnie albo na własnych maszynach przez SSH/SFTP."]}},
+ {n:"Orca",s:"open source, MIT",v:{
+  wip:["R",N],
+  triage:["G","Powiadomienia i stan „nieprzeczytane”; aplikacja mobilna."],
+  batch:["R",N],
+  log:["R",N],
+  checks:["Y","Checki GitHub Actions przy każdym worktree."],
+  merge:["G","Sam mergujesz zwycięzcę."],
+  review:["G","Komentarze do linii diffu wracają do agenta; porównanie pięciu agentów."],
+  sandbox:["R",N],
+  worktree:["G","Równoległe worktree, także przez SSH."],
+  plan:["Y","Worktree z zadania GitHub albo Linear."],
+  collide:["R",N],
+  cost:["Y","Użycie i resety limitów Claude i Codex na poziomie konta."],
+  agent:["G","Dowolny agent CLI."],
+  host:["G","Zdalne worktree przez SSH, tryb headless, aplikacja mobilna."]}},
+ {n:"T3 Code",s:"open source",v:{
+  wip:["Y","Kolejka wiadomości w wątku. Kolejki zadań i limitu nie opisano."],
+  triage:["G","Sekcja „Working”: wątki wracają, gdy Cię potrzebują; powiadomienia."],
+  batch:["R",N],
+  log:["Y","Wyszukiwanie wątków po treści; wznawianie po restarcie."],
+  checks:["Y","Agent jest budzony, gdy checki albo review w PR go potrzebują."],
+  merge:["G","Automatycznego merge'a nie opisano."],
+  review:["G","Panel diffów dla zmian w gałęzi."],
+  sandbox:["R",N],
+  worktree:["G","Wątki w osobnych worktree."],
+  plan:["Y","Orchestrator V2: delegowanie do agentów innych dostawców w obrębie wątku."],
+  collide:["Y","Agent jest budzony przy konflikcie w PR, czyli po fakcie."],
+  cost:["Y","Strona użycia."],
+  agent:["G","Claude, Codex, OpenCode, Cursor, Pi, Grok i Antigravity."],
+  host:["Y","Lokalnie z dostępem z telefonu przez T3 Connect."]}}
+];
+const GLYPH={G:"✓",Y:"~",R:"✕"};
+const CLS={G:"G",Y:"Y",R:"R","?":"U"};
+const LABEL={G:"spełnia",Y:"częściowo",R:"brak"};
+const grpRow=document.getElementById("grpRow"),critRow=document.getElementById("critRow"),body=document.getElementById("body"),foot=document.getElementById("foot"),detail=document.getElementById("detail");
+const groupStart=new Set(GROUPS.map(g=>g.keys[0]));
+grpRow.innerHTML='<th class="tool"></th>'+GROUPS.map(g=>`<th colspan="${g.keys.length}">${g.name}</th>`).join("");
+critRow.innerHTML='<th class="tool"></th>'+KEYS.map(k=>`<th data-k="${k}" class="${groupStart.has(k)?'grpstart':''}"><button type="button" data-k="${k}">${CRIT[k].t}${CRIT[k].nw?'<span class="new">nowe</span>':''}</button></th>`).join("");
+function score(t){const c={G:0,Y:0,R:0};KEYS.forEach(k=>c[t.v[k][0]]++);
+  const pct=Math.round(c.G/KEYS.length*100);
+  return `<div class="score" aria-label="Spełnia ${c.G} z ${KEYS.length} testów, częściowo ${c.Y}, brak ${c.R}"><div class="bar"><i class="bg" style="width:${c.G/KEYS.length*100}%"></i><i class="by" style="width:${c.Y/KEYS.length*100}%"></i></div><span class="sc"><b>${c.G} z ${KEYS.length}</b> · częściowo ${c.Y}</span></div>`}
+body.innerHTML=TOOLS.map((t,ti)=>`<tr class="${t.cez?'cez':''} ${(ti===0||ti===5)?'sep':''}"><td class="tool"><b>${t.n}</b><span>${t.s}</span>${score(t)}</td>`+KEYS.map(k=>{const [v]=t.v[k];return `<td class="c ${groupStart.has(k)?'grpstart':''}" data-k="${k}"><button type="button" class="cellbtn dot-${CLS[v]}" data-t="${ti}" data-k="${k}" aria-pressed="false" aria-label="${t.n}, ${CRIT[k].t}: ${LABEL[v]}">${GLYPH[v]}</button></td>`}).join("")+"</tr>").join("");
+foot.innerHTML='<td class="tool">Spełnia test</td>'+KEYS.map(k=>{const n=TOOLS.filter(t=>t.v[k][0]==="G").length;return `<td class="${groupStart.has(k)?'grpstart':''}" data-k="${k}">${n} z ${TOOLS.length}</td>`}).join("");
+function hot(k){document.querySelectorAll('[data-k]').forEach(el=>{if(el.tagName==="TD"||el.tagName==="TH")el.classList.toggle("col-hot",k&&el.dataset.k===k)})}
+let pressed=null;
+body.addEventListener("click",e=>{const b=e.target.closest(".cellbtn");if(!b)return;const t=TOOLS[+b.dataset.t],k=b.dataset.k,[v,note]=t.v[k];
+  if(pressed)pressed.setAttribute("aria-pressed","false");b.setAttribute("aria-pressed","true");pressed=b;hot(k);
+  detail.innerHTML=`<h2>${t.n}: ${CRIT[k].t.toLowerCase()} — ${LABEL[v]}</h2><p>${note}</p><p class="why">Dlaczego to kryterium: ${CRIT[k].why}</p>`;});
+critRow.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.k;hot(k);
+  const counts={G:0,Y:0,R:0};TOOLS.forEach(t=>counts[t.v[k][0]]++);
+  detail.innerHTML=`<h2>${CRIT[k].t}</h2><p><b>Test:</b> ${CRIT[k].test}</p><p class="why">Zielony: ${CRIT[k].g}. Żółty: ${CRIT[k].y}. Czerwony: ${CRIT[k].r}.</p><p class="why">Dlaczego: ${CRIT[k].why} W tabeli: ${counts.G} × spełnia, ${counts.Y} × częściowo, ${counts.R} × brak.</p>`;});
+document.getElementById("tNew").addEventListener("click",e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);
+  KEYS.forEach(k=>{if(!CRIT[k].nw)document.querySelectorAll(`[data-k="${k}"]`).forEach(el=>{if(el.tagName==="TD"||el.tagName==="TH")el.style.display=on?"none":""})});
+  grpRow.querySelectorAll("th[colspan]").forEach((th,i)=>{const g=GROUPS[i];const vis=on?g.keys.filter(k=>CRIT[k].nw).length:g.keys.length;th.style.display=vis?"":"none";th.colSpan=vis||1});});
+
+const FT=["Cezar","Codex","Copilot app","Cursor 3","Claude Code desktop","Antigravity 2.0","Conductor","Superset","Emdash","Orca","T3 Code"];
+const FEAT=[
+ {g:"Podstawy"},
+ {f:"Platformy",v:[["T","Linux, macOS, WSL2 + kokpit w przeglądarce"],["T","macOS, Windows"],["T","macOS, Windows, Linux"],["T","macOS, Windows, Linux"],["T","macOS, Windows"],["T","macOS, Windows, Linux"],["T","macOS"],["T","macOS, Windows, Linux"],["T","macOS, Windows, Linux"],["T","macOS, Windows, Linux"],["T","desktop + mobile"]]},
+ {f:"Licencja",v:[["T","MIT"],["T","komercyjna"],["T","komercyjna"],["T","komercyjna"],["T","komercyjna"],["T","komercyjna"],["T","komercyjna"],["T","Elastic 2.0"],["T","Apache-2.0"],["T","MIT"],["T","open source"]]},
+ {f:"Obsługiwani agenci",v:[["T","Claude Code, Codex, Copilot, Cursor, Junie, OpenCode, pi"],["T","Codex"],["T","Copilot; Claude Code i Codex w wyższych planach"],["T","agent Cursora, wiele modeli"],["T","Claude Code"],["T","agent Google; Gemini, Claude, GPT-OSS"],["T","Claude Code, Codex, Cursor, OpenCode"],["T","dowolny agent CLI"],["T","20+ agentów CLI"],["T","dowolny agent CLI"],["T","Claude, Codex, OpenCode, Cursor, Pi, Grok, Antigravity"]]},
+ {g:"Praca równoległa"},
+ {f:"Worktree na zadanie",v:["Y","Y","Y","Y","Y","N","Y","Y","Y","Y","Y"]},
+ {f:"Kolejka zadań z limitem",v:[["Y","ustawialny limit"],"N","N","N","N",["P","stały limit 5"],"N","N","N","N","N"]},
+ {f:"Kolejka wiadomości w sesji",v:[["P","follow-upy do żywej sesji"],"Y","Y","Y","Y","N","Y","N","N","N","Y"]},
+ {f:"Warianty / best-of-N",v:[["Y","×2 / ×3"],"N","N",["Y","/best-of-n"],"N","N","N","N","Y",["Y","do 5 agentów"],"N"]},
+ {f:"Wiele projektów w jednym widoku",v:["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y"]},
+ {g:"Nadzór i review"},
+ {f:"Powiadomienie „czeka na Ciebie”",v:["Y","Y","N","N","Y","Y","Y","Y","Y","Y","Y"]},
+ {f:"Diff w aplikacji",v:["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y"]},
+ {f:"Komentarze z diffu wracają do agenta",v:["Y","Y","N","N","Y",["Y","komentarze do artefaktów"],"Y","N","N","Y","N"]},
+ {f:"Tryb planowania",v:[["Y","Plan first"],"Y","Y","Y","Y","Y","Y","N","N","N",["P","w funkcjach legacy"]]},
+ {f:"Lokalne checki z ponowieniem",v:[["Y","workflow YAML, onFail"],"N","N","N",["P","hooki"],"N","N","N","N","N","N"]},
+ {f:"Podgląd CI / checków PR",v:["N","N","Y","N","Y","N","Y","N","Y","Y","Y"]},
+ {f:"Wbudowana przeglądarka / podgląd aplikacji",v:["N","Y","Y","Y","Y","Y","N","Y","N","Y","N"]},
+ {g:"Git i integracje"},
+ {f:"Pull request z aplikacji",v:[["Y","draft PR"],"N","Y","Y","Y","N","Y","Y","Y","Y","Y"]},
+ {f:"Merge z aplikacji",v:[["N","celowo: merguje człowiek"],"N",["Y","Agent Merge"],"N",["Y","przełącznik auto-merge"],"N","Y","N","Y","Y","N"]},
+ {f:"Zadania z trackerów",v:[["T","GitHub issues, Jira, Linear"],"—",["T","GitHub"],["T","Slack, Linear, GitHub, PagerDuty"],"—","—",["T","GitHub"],["T","Linear, Slack"],["T","GitHub, Linear, Jira + ok. 7"],["T","GitHub, Linear"],"—"]},
+ {f:"Automatyzacje (harmonogram / zdarzenia)",v:[["Y","GitHub, Jira, Linear"],"Y","Y","Y","Y","Y",["Y","Routines w chmurze"],"Y","Y","N","N"]},
+ {f:"API, CLI lub SDK do sterowania",v:["Y","Y","Y","Y","Y","Y","Y","Y","N","Y",["Y","MCP"]]},
+ {g:"Środowisko i bezpieczeństwo"},
+ {f:"Sandbox dla agenta",v:[["Y","Open Mercato Sandbox"],"Y","Y",["Y","w chmurze"],["Y","opt-in"],["P","polityki terminala"],["Y","w chmurze"],["P","zgoda na pliki poza workspace"],["P","Emdash Cloud, wczesny"],"N","N"]},
+ {f:"Agenci w chmurze",v:[["Y","Open Mercato Sandbox"],"Y","Y","Y","Y",["P","Managed Agents API"],"Y","Y",["P","wczesny etap"],"N","N"]},
+ {f:"Własny serwer / zdalny host",v:[["Y","VPS z instalatorem"],["Y","SSH"],"N",["Y","SSH"],"N","N","N",["Y","relay"],["Y","SSH/SFTP"],["Y","SSH, headless"],"N"]},
+ {f:"Dostęp z telefonu",v:["Y","Y","Y","Y","Y","N",["P","zapowiedziany"],"N","N","Y","Y"]},
+ {f:"Koszt lub tokeny na zadanie",v:[["Y","na krok i zadanie"],["P","zbiorczo, admin"],["Y","tokeny w logu sesji"],["P","tylko przez SDK"],["P","/cost w CLI"],"N",["P","użycie planu"],"N","N",["P","użycie konta"],["P","strona użycia"]]}
+];
+const FSYM={Y:"✓",P:"~",N:"✕"},FCLS={Y:"G",P:"Y",N:"R"};
+document.getElementById("fhead").innerHTML='<th class="tool"></th>'+FT.map((n,i)=>`<th class="${i===0?'cz':''}">${n}</th>`).join("");
+document.getElementById("fbody").innerHTML=FEAT.map(r=>{
+  if(r.g)return `<tr class="fg"><th colspan="1">${r.g}</th>${FT.map(()=>'<td></td>').join("")}</tr>`;
+  return `<tr><th scope="row">${r.f}</th>`+r.v.map((c,i)=>{const cz=i===0?' class="cz"':'';
+    if(c==="—")return `<td${cz}><span class="fn">—</span></td>`;
+    const [k,note]=Array.isArray(c)?c:[c,""];
+    if(k==="T")return `<td${cz}><span class="ft">${note}</span></td>`;
+    return `<td${cz}><span class="fv dot-${FCLS[k]}" aria-label="${k==="Y"?"jest":k==="P"?"częściowo":"brak"}">${FSYM[k]}</span>${note?`<span class="fn">${note}</span>`:""}</td>`}).join("")+"</tr>"}).join("");
+
+{const rows=FEAT.filter(r=>!r.g&&r.v.some(c=>["Y","P","N"].includes(Array.isArray(c)?c[0]:c)));
+document.getElementById("ffoot").innerHTML=`<th>Funkcje ✓ (z ${rows.length})</th>`+FT.map((n,i)=>{const c={Y:0,P:0,N:0};rows.forEach(r=>{const x=r.v[i];const k=Array.isArray(x)?x[0]:x;if(k in c)c[k]++});
+ return `<td class="${i===0?'cz':''}"><b>${c.Y}</b>~ ${c.P}<div class="fbar"><i style="width:${c.Y/rows.length*100}%;background:var(--go)"></i><i style="width:${c.P/rows.length*100}%;background:var(--mid)"></i></div></td>`}).join("");}
+</script>
+</body>
+</html>

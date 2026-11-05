@@ -1,0 +1,26 @@
+
+katalog skili:
+https://github.com/open-mercato/skills/blob/main/docs/skills/README.md
+
+om-prepare-issue (opis)
+	Z krótkiego opisu robi zgłoszenie, które da się później podjąć bez zgadywania. Nie naprawia jeszcze aplikacji.
+
+/om-auto-fix-issue 65
+	To koordynator całej naprawy. Poniższa ścieżka dotyczy błędu; nowe funkcje prowadzi osobno przez specyfikację i implementację.
+
+	
+	om-verify-in-repo
+			Pierwsza bramka odpowiada na pytanie: czy ten błąd nadal wymaga naszej pracy? Sprawdza dowody, zanim zaczniemy cokolwiek poprawiać.
+	om-root-cause
+		Ten etap ma znaleźć przyczynę, a nie od razu przerabiać pół aplikacji. Następny skill dostaje konkretny plan minimalnej poprawki.
+	om-fix
+		Tutaj powstaje poprawka i dowód, że usuwa błąd. Sam commit i publikacja PR-a należą już do następnego skilla.
+	om-open-pr
+		Pakuje sprawdzoną zmianę w pull request, który da się przejrzeć. Nie jest kolejną rundą dopisywania funkcji.
+		
+	om-auto-review-pr
+	
+	om-auto-qa-pr 68 
+	
+	om-approve-merge-pr 68
+	
