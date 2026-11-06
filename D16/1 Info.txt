@@ -1,0 +1,13 @@
+
+
+OWASP
+
+IDOR
+Inseure direct object reference
+
+broken access control
+izolacja miedzy tenantami
+Static application security testing
+Dynamic application security testing
+
+narzedzie Vercel DeepSek - poszukuje podatnosci za pomaca agentow

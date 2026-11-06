@@ -1,0 +1,12 @@
+Nad czym pracujemy?
+Co może pójść nie tak?
+Co z tym robimy?
+Czy zrobiliśmy to dobrze?
+
+narzedzie STRIDE:
+S Spoofing	uwierzytelnianie	T-18: podrobiony webhook płatności potwierdza albo zwraca rezerwację
+T Tampering	integralność	T-17: rezerwacja potwierdzona bez sprawdzenia, czy pieniądze wpłynęły
+R Repudiation	rozliczalność	T-15: po wypłatach i zmianach ról zostają tylko logi aplikacji
+I Information disclosure	poufność	T-12: /api/health pokazuje anonimowo błąd bazy
+D Denial of service	dostępność	T-08: seria rejestracji na jeden adres wysyła maile bez limitu
+E Elevation of privilege	autoryzację	T-03: przejęcie adresu operatora daje dostęp do panelu i wypłat
